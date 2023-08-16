@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "urlium:block/urlpost_block" }
+  }
+}

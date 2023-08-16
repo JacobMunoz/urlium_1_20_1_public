@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "electricshmoo.urlium.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "UrliumBlockEntityDataSaverMixin",
+    "UrliumItemDataSaverMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
