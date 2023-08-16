@@ -1,11 +1,9 @@
 package electricshmoo.urlium;
 
 import electricshmoo.urlium.block.UrlPostBlock;
-import electricshmoo.urlium.command.BookCommand;
 import electricshmoo.urlium.command.QueryCommand;
 import electricshmoo.urlium.item.UrlConfigWand;
 import electricshmoo.urlium.item.UrlPostBlockItem;
-import electricshmoo.urlium.item.UrlPostBook;
 import electricshmoo.urlium.item.UrlPostWand;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.fabricmc.api.ModInitializer;
@@ -47,9 +45,6 @@ public class UrlComMod implements ModInitializer {
 	public static final Identifier URL_POST_WAND_ID = new Identifier(MOD_ID, URL_POST_WAND_ID_STRING);
 	public static final String URL_CONFIG_WAND_ID_STRING = "item/urlconfigwand_item";
 	public static final Identifier URL_CONFIG_WAND_ID = new Identifier(MOD_ID, URL_CONFIG_WAND_ID_STRING);
-	public static final String URL_BOOK_ID_STRING = "item/urlbook_item";
-	public static final Identifier URL_BOOK_ID = new Identifier(MOD_ID, URL_BOOK_ID_STRING);
-	public static final Identifier URL_BOOK_UPDATE_PACKET_ID = new Identifier("minecraft", "book_update");
 
 	public void onInitialize() {
 		LOGGER.info("URLium initializing...");
@@ -63,9 +58,7 @@ public class UrlComMod implements ModInitializer {
 		registerPostBlock( postUrl, userAgent);
 		registerPostWand(postUrl, userAgent);
 		registerConfigWand(postUrl, userAgent);
-//		registerBook(postUrl, userAgent);
-		registerQueryCommand(postUrl, userAgent);
-//		registerBookCommand(postUrl, userAgent);
+		registerQueryCommand();
 
 		LOGGER.info("URLium initialized.");
 	}
@@ -76,7 +69,7 @@ public class UrlComMod implements ModInitializer {
 				List<String> cfgLines = Files.readAllLines(f.toPath(), StandardCharsets.UTF_8);
 				for (String line : cfgLines) {
 					if ( line.length() > 0
-					&& (line.substring(0,1)!="#")
+					&& (!line.substring(0,1).equals("#"))
 					&& (line.indexOf("=") > 0)) {
 						String para = line.substring(0,line.indexOf("="));
 						String val = line.substring(line.indexOf("=")+1);
@@ -118,15 +111,8 @@ public class UrlComMod implements ModInitializer {
 		var item = new UrlConfigWand(new Item.Settings(), URL_CONFIG_WAND_ID_STRING, url, agent);
 		Registry.register(Registries.ITEM, URL_CONFIG_WAND_ID, item);
 	}
-	public static void registerBook(String url, String agent) {
-		var item = new UrlPostBook(new Item.Settings(), URL_BOOK_ID_STRING, url, agent);
-		Registry.register(Registries.ITEM, URL_BOOK_ID, item);
-	}
-	public static void registerQueryCommand(String url, String agent){
+	public static void registerQueryCommand(){
 		CommandRegistrationCallback.EVENT.register(QueryCommand::register);
-	}
-	public static void registerBookCommand(String url, String agent){
-		CommandRegistrationCallback.EVENT.register(BookCommand::register);
 	}
 	public static void sendPOST(Map<Object, Object> data ) throws IOException {
 
