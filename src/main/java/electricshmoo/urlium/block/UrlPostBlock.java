@@ -27,28 +27,20 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static electricshmoo.urlium.UrlComMod.sendPOST;
+
 public class UrlPostBlock extends Block implements PolymerTexturedBlock {
     private final BlockState polymerBlockState;
-    private static String postUrl;
-    private static String userAgent;
 
-    public UrlPostBlock(String modelId, String url, String agent) {
+    public UrlPostBlock(String modelId) {
         super(FabricBlockSettings.copy(Blocks.DIAMOND_BLOCK));
         this.polymerBlockState = PolymerBlockResourceUtils.requestBlock(
                 BlockModelType.FULL_BLOCK,
                 PolymerBlockModel.of(new Identifier("urlium", modelId)));
-        postUrl = url;
-        userAgent = agent;
+
     }
     @Override
     public Block getPolymerBlock(BlockState state) {
@@ -69,10 +61,6 @@ public class UrlPostBlock extends Block implements PolymerTexturedBlock {
 
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        if (postUrl.equals("") ) {
-            UrlComMod.LOGGER.info("Urlium not configured.  No post transmitted.");
-            return;
-        }
         if (!world.isClient) {
             int pow = state.get(POWER);
             int realpow = world.getReceivedRedstonePower(sourcePos);
@@ -80,13 +68,35 @@ public class UrlPostBlock extends Block implements PolymerTexturedBlock {
                 if (realpow > 0) {
                     world.scheduleBlockTick(pos, this, 4);
                     try {
-                        sendPOST(pos, realpow, "sense","");
+                        long unixTime = System.currentTimeMillis();
+                        Map<Object, Object> data = new HashMap<>();
+                        data.put("device", "block");
+                        data.put("method", "sense");
+                        data.put("ts", unixTime);
+                        data.put("x", pos.getX());
+                        data.put("y", pos.getY());
+                        data.put("z", pos.getZ());
+                        data.put("p", pow);
+
+                        sendPOST(data);
+
                     } catch (IOException ignore) { }
                 } else {
                     world.setBlockState(pos, state.with(POWER, 0), 2);
                     world.scheduleBlockTick(pos, this, 4);
                     try {
-                        sendPOST(pos, 0,"sense", "");
+                        long unixTime = System.currentTimeMillis();
+                        Map<Object, Object> data = new HashMap<>();
+                        data.put("device", "block");
+                        data.put("method", "sense");
+                        data.put("ts", unixTime);
+                        data.put("x", pos.getX());
+                        data.put("y", pos.getY());
+                        data.put("z", pos.getZ());
+                        data.put("p", 0);
+
+                        sendPOST(data);
+
                     } catch (IOException ignore) { }
                 }
             }
@@ -94,20 +104,25 @@ public class UrlPostBlock extends Block implements PolymerTexturedBlock {
     }
 
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit){
-        if (postUrl.equals("") ) {
-            UrlComMod.LOGGER.info("Urlium not configured.  No post transmitted.");
-        } else {
-            if (!world.isClient && hand == Hand.OFF_HAND ) {
-                int realpow = state.get(POWER);
-                String userName = player.getEntityName();
-                try {
-                    sendPOST(pos, realpow,"use", userName);
+        if (!world.isClient && hand == Hand.OFF_HAND ) {
+            int realpow = state.get(POWER);
+            String userName = player.getEntityName();
+            try {
+                long unixTime = System.currentTimeMillis();
+                Map<Object, Object> data = new HashMap<>();
+                data.put("device", "block");
+                data.put("method", "use");
+                data.put("user", userName);
+                data.put("ts", unixTime);
+                data.put("x", pos.getX());
+                data.put("y", pos.getY());
+                data.put("z", pos.getZ());
+                data.put("p", realpow);
+                sendPOST(data);
+                spawnParticles(world,pos);
 
-                    spawnParticles(world,pos);
-
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
         return ActionResult.success(world.isClient);
@@ -115,36 +130,6 @@ public class UrlPostBlock extends Block implements PolymerTexturedBlock {
     }
 
 
-    private static void sendPOST(BlockPos pos, int pow, String method, String sender) throws IOException {
-        long unixTime = System.currentTimeMillis();
-
-        Map<Object, Object> data = new HashMap<>();
-        data.put("device", "block");
-        data.put("method", method);
-        data.put("ts", unixTime);
-        data.put("x", pos.getX());
-        data.put("y", pos.getY());
-        data.put("z", pos.getZ());
-        data.put("p", pow);
-        data.put("user", sender);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(postUrl))
-                .POST(buildFormDataFromMap(data))
-                .timeout(Duration.ofSeconds(5))
-                .header("User-Agent", userAgent)
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .build();
-
-        HttpClient client = HttpClient.newBuilder().build();
-        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(UrlPostBlock::getResponse);
-
-    }
-    public static void getResponse(String data) {
-        UrlComMod.LOGGER.info("POST Response Data: " + data);
-    }
 
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         UrlComMod.LOGGER.info("Hit scheduledTick at "+ pos.getX() + ","+pos.getY()+","+pos.getZ());
@@ -187,18 +172,5 @@ public class UrlPostBlock extends Block implements PolymerTexturedBlock {
 
             }
         }
-    }
-    private static HttpRequest.BodyPublisher buildFormDataFromMap(Map<Object, Object> data) {
-        var builder = new StringBuilder();
-        for (Map.Entry<Object, Object> entry : data.entrySet()) {
-            if (builder.length() > 0) {
-                builder.append("&");
-            }
-            builder.append(URLEncoder.encode(entry.getKey().toString(), StandardCharsets.UTF_8));
-            builder.append("=");
-            builder.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
-        }
-        //UrlComMod.LOGGER.info((builder.toString()));
-        return HttpRequest.BodyPublishers.ofString(builder.toString());
     }
 }

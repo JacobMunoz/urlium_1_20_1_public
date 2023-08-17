@@ -1,6 +1,6 @@
 package electricshmoo.urlium.item;
 
-import electricshmoo.urlium.block.UrlPostBlock;
+import electricshmoo.urlium.UrlComMod;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.resourcepack.api.PolymerModelData;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
@@ -23,27 +23,17 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UrlPostWand extends Item implements PolymerItem {
 
     private final PolymerModelData polymerModel;
-    private static String postUrl;
-    private static String userAgent;
 
 
-    public UrlPostWand(Settings settings, String modelId, String url, String agent) {
+
+    public UrlPostWand(Settings settings, String modelId) {
         super(settings);
-        postUrl = url;
-        userAgent = agent;
         this.polymerModel = PolymerResourcePackUtils.requestModel(Items.BARRIER, new Identifier("urlium", modelId));
     }
 
@@ -63,15 +53,28 @@ public class UrlPostWand extends Item implements PolymerItem {
             World world =  context.getWorld();
             BlockState clickedBlock = world.getBlockState(clicked);
             Block block = clickedBlock.getBlock();
-            String blockName = String.valueOf(block.getName());
             PlayerEntity player = context.getPlayer();
             String userName = player.getEntityName();
             Integer pow = world.getReceivedRedstonePower(clicked);
             Hand hand = context.getHand();
-            String method = hand.toString();
+            String methodHand = hand.toString();
 
             try {
-                sendPOST(clicked, pow, blockName,clickedBlock.toString(), method, userName);
+                Map<Object, Object> data = new HashMap<>();
+                long unixTime = System.currentTimeMillis();
+
+                data.put("ts", unixTime);
+                data.put("x", clicked.getX());
+                data.put("y", clicked.getY());
+                data.put("z", clicked.getZ());
+                data.put("p", pow);
+                data.put("hand", methodHand);
+                data.put("block", block);
+                data.put("blockState", clickedBlock);
+                data.put("user", userName);
+
+                UrlComMod.sendPOST(data);
+
                 spawnParticles(world,clicked);
             } catch (IOException ignored) { }
 
@@ -97,47 +100,5 @@ public class UrlPostWand extends Item implements PolymerItem {
 
             }
         }
-    }
-    private static void sendPOST(BlockPos pos, Integer pow, String block, String blockState, String method, String sender) throws IOException {
-        long unixTime = System.currentTimeMillis();
-
-        Map<Object, Object> data = new HashMap<>();
-        data.put("device", "wand");
-        data.put("hand", method);
-        data.put("ts", unixTime);
-        data.put("x", pos.getX());
-        data.put("y", pos.getY());
-        data.put("z", pos.getZ());
-        data.put("p", pow);
-        data.put("block", block);
-        data.put("blockState", blockState);
-        data.put("user", sender);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(postUrl))
-                .POST(buildFormDataFromMap(data))
-                .timeout(Duration.ofSeconds(5))
-                .header("User-Agent", userAgent)
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .build();
-
-        HttpClient client = HttpClient.newBuilder().build();
-        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(UrlPostBlock::getResponse);
-
-    }
-    private static HttpRequest.BodyPublisher buildFormDataFromMap(Map<Object, Object> data) {
-        var builder = new StringBuilder();
-        for (Map.Entry<Object, Object> entry : data.entrySet()) {
-            if (builder.length() > 0) {
-                builder.append("&");
-            }
-            builder.append(URLEncoder.encode(entry.getKey().toString(), StandardCharsets.UTF_8));
-            builder.append("=");
-            builder.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
-        }
-        //UrlComMod.LOGGER.info((builder.toString()));
-        return HttpRequest.BodyPublishers.ofString(builder.toString());
     }
 }

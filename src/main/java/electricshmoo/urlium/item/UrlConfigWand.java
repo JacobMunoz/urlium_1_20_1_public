@@ -21,13 +21,10 @@ import org.jetbrains.annotations.Nullable;
 public class UrlConfigWand extends Item implements PolymerItem {
 
     private final PolymerModelData polymerModel;
-    private static String postUrl;
-    private static String userAgent;
 
-    public UrlConfigWand(Settings settings, String modelId, String url, String agent) {
+
+    public UrlConfigWand(Settings settings, String modelId) {
         super(settings);
-        postUrl = url;
-        userAgent = agent;
         this.polymerModel = PolymerResourcePackUtils.requestModel(Items.BARRIER, new Identifier("urlium", modelId));
     }
 

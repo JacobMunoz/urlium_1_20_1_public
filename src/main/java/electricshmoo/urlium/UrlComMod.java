@@ -55,9 +55,9 @@ public class UrlComMod implements ModInitializer {
 		postUrl = getConfigData("target");
 		userAgent = getConfigData("agent");
 
-		registerPostBlock( postUrl, userAgent);
-		registerPostWand(postUrl, userAgent);
-		registerConfigWand(postUrl, userAgent);
+		registerPostBlock();
+		registerPostWand();
+		registerConfigWand();
 		registerQueryCommand();
 
 		LOGGER.info("URLium initialized.");
@@ -69,7 +69,7 @@ public class UrlComMod implements ModInitializer {
 				List<String> cfgLines = Files.readAllLines(f.toPath(), StandardCharsets.UTF_8);
 				for (String line : cfgLines) {
 					if ( line.length() > 0
-					&& (!line.substring(0,1).equals("#"))
+					&& (line.charAt(0) != '#')
 					&& (line.indexOf("=") > 0)) {
 						String para = line.substring(0,line.indexOf("="));
 						String val = line.substring(line.indexOf("=")+1);
@@ -98,24 +98,27 @@ public class UrlComMod implements ModInitializer {
 		return "";
 	}
 
-	public static void registerPostBlock(String url, String agent) {
-		URL_POST_BLOCK = new UrlPostBlock(URL_POST_BLOCK_ID_STRING, url, agent);
+	public static void registerPostBlock() {
+		URL_POST_BLOCK = new UrlPostBlock(URL_POST_BLOCK_ID_STRING);
 		var blockreg = Registry.register(Registries.BLOCK, URL_POST_BLOCK_ID, URL_POST_BLOCK);
 		Registry.register(Registries.ITEM, URL_POST_BLOCK_ID, new UrlPostBlockItem(new Item.Settings(), blockreg, URL_POST_BLOCK_ID_STRING));
 	}
-	public static void registerPostWand(String url, String agent) {
-		var item = new UrlPostWand(new Item.Settings(), URL_POST_WAND_ID_STRING, url, agent);
+	public static void registerPostWand() {
+		var item = new UrlPostWand(new Item.Settings(), URL_POST_WAND_ID_STRING);
 		Registry.register(Registries.ITEM, URL_POST_WAND_ID, item);
 	}
-	public static void registerConfigWand(String url, String agent) {
-		var item = new UrlConfigWand(new Item.Settings(), URL_CONFIG_WAND_ID_STRING, url, agent);
+	public static void registerConfigWand() {
+		var item = new UrlConfigWand(new Item.Settings(), URL_CONFIG_WAND_ID_STRING);
 		Registry.register(Registries.ITEM, URL_CONFIG_WAND_ID, item);
 	}
 	public static void registerQueryCommand(){
 		CommandRegistrationCallback.EVENT.register(QueryCommand::register);
 	}
 	public static void sendPOST(Map<Object, Object> data ) throws IOException {
-
+		if (postUrl.equals("")) {
+			LOGGER.info("URLium target config is blank.  No POST transmitted.");
+			return;
+		}
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create(postUrl))
 				.POST(buildFormDataFromMap(data))
@@ -127,7 +130,7 @@ public class UrlComMod implements ModInitializer {
 		HttpClient client = HttpClient.newBuilder().build();
 		client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
 				.thenApply(HttpResponse::body)
-				.thenAccept(UrlPostBlock::getResponse);
+				.thenAccept(UrlComMod::getResponse);
 
 	}
 	private static HttpRequest.BodyPublisher buildFormDataFromMap(Map<Object, Object> data) {
@@ -142,4 +145,8 @@ public class UrlComMod implements ModInitializer {
 		}
 		return HttpRequest.BodyPublishers.ofString(builder.toString());
 	}
+	public static void getResponse(String data) {
+		UrlComMod.LOGGER.info("POST Response Data: " + data);
+	}
+
 }
