@@ -2,6 +2,7 @@ package electricshmoo.urlium;
 
 import electricshmoo.urlium.block.UrlPostBlock;
 import electricshmoo.urlium.command.QueryCommand;
+import electricshmoo.urlium.command.ServerCommand;
 import electricshmoo.urlium.item.UrlConfigWand;
 import electricshmoo.urlium.item.UrlPostBlockItem;
 import electricshmoo.urlium.item.UrlPostWand;
@@ -38,6 +39,7 @@ public class UrlComMod implements ModInitializer {
 	public static Block URL_POST_BLOCK = null;
 	private static String postUrl;
 	private static String userAgent;
+	private static String messageCommandName;
 
 	public static final String URL_POST_BLOCK_ID_STRING = "block/urlpost_block";
 	public static final Identifier URL_POST_BLOCK_ID = new Identifier(MOD_ID, URL_POST_BLOCK_ID_STRING);
@@ -52,17 +54,22 @@ public class UrlComMod implements ModInitializer {
 		PolymerResourcePackUtils.markAsRequired();
 		PolymerResourcePackUtils.addModAssets(MOD_ID);
 
-		postUrl = getConfigData("target");
-		userAgent = getConfigData("agent");
+		postUrl = getConfigData("target", "");
+		userAgent = getConfigData("agent","urlium_1.0.2");
+		messageCommandName = getConfigData("messageCommand","webcom");
 
 		registerPostBlock();
 		registerPostWand();
 		registerConfigWand();
 		registerQueryCommand();
+		registerServerMessageCommand();
 
 		LOGGER.info("URLium initialized.");
 	}
-	private static String getConfigData(String param) {
+	public static String getMessageComandName(){
+		return messageCommandName;
+	}
+	private static String getConfigData(String param, String deefault) {
 		File f = new File("./config/urlium.properties");
 		if(f.exists() && !f.isDirectory()) {
 			try {
@@ -80,22 +87,25 @@ public class UrlComMod implements ModInitializer {
 					}
 				}
 			} catch (IOException e) {
-				throw new RuntimeException(e);
+				LOGGER.info("Failed to parse URLium config file");
 			}
 		} else {
-			LOGGER.info("URLium no config file found.");
+			LOGGER.info("No config file (urlium.properties) found.  Attempting to write default config file.");
 			try {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(f.toPath().toString()));
 				writer.write("#set target to the http(s) url to send data to\n");
 				writer.write("target=");
 				writer.write("#set agent to the User-Agent header to be transmitted (browser name)\n");
-				writer.write("agent=urlium_1.0.0");
+				writer.write("agent=urlium_1.0.2");
+				writer.write("#command name to transmit user messages to server\n");
+				writer.write("messageCommand=webcom");
 				writer.close();
+				LOGGER.info("Wrote default config file (urlium.properties)  Please set 'target'.");
 			} catch (IOException e) {
-				throw new RuntimeException(e);
+				LOGGER.info("Failed to write default config file (urlium.properties)  Please check config folder.");
 			}
 		}
-		return "";
+		return deefault;
 	}
 
 	public static void registerPostBlock() {
@@ -114,6 +124,10 @@ public class UrlComMod implements ModInitializer {
 	public static void registerQueryCommand(){
 		CommandRegistrationCallback.EVENT.register(QueryCommand::register);
 	}
+	public static void registerServerMessageCommand(){
+		CommandRegistrationCallback.EVENT.register(ServerCommand::register);
+	}
+
 	public static void sendPOST(Map<Object, Object> data ) throws IOException {
 		if (postUrl.equals("")) {
 			LOGGER.info("URLium target config is blank.  No POST transmitted.");

@@ -76,7 +76,7 @@ public class UrlPostBlock extends Block implements PolymerTexturedBlock {
                         data.put("x", pos.getX());
                         data.put("y", pos.getY());
                         data.put("z", pos.getZ());
-                        data.put("p", pow);
+                        data.put("p", realpow);
 
                         sendPOST(data);
 

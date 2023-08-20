@@ -265,9 +265,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="359.48453"
-     inkscape:cy="886.18913"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="329.68433"
+     inkscape:cy="231.18637"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -284,7 +284,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -314,7 +314,22 @@
          x="30.837193"
          y="226.4679"
          style="stroke-width:0.26458332px"
-         id="tspan14399">target=https://website.to.submit/to</tspan></text>
+         id="tspan3924" /><tspan
+         sodipodi:role="line"
+         x="30.837193"
+         y="231.42883"
+         style="stroke-width:0.26458332px"
+         id="tspan14399">target=https://website.to.submit/to</tspan><tspan
+         sodipodi:role="line"
+         x="30.837193"
+         y="236.38977"
+         style="stroke-width:0.26458332px"
+         id="tspan3926" /><tspan
+         sodipodi:role="line"
+         x="30.837193"
+         y="241.35071"
+         style="stroke-width:0.26458332px"
+         id="tspan3922">agent=simulated_browser_agent_name</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.8731389px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.45820922px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
