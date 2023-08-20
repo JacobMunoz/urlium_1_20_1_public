@@ -17,7 +17,7 @@
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="info2.svg"
-   inkscape:export-filename="/core/Data/Games/minecraft/urlium_1_20_1/urlium1_b.png"
+   inkscape:export-filename="/core/Data/Games/minecraft/urlium_1_20_1/doc/urlium1_b.png"
    inkscape:export-xdpi="150"
    inkscape:export-ydpi="150">
   <defs
@@ -266,8 +266,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="319.02179"
-     inkscape:cy="603.60281"
+     inkscape:cx="149.31616"
+     inkscape:cy="644.00891"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -403,7 +403,9 @@
          x="28.32691"
          y="162.15633"
          style="stroke-width:0.22334844px"
-         id="tspan14375">Any user may transmit a message to the webserver with a custom command.</tspan><tspan
+         id="tspan14375"><tspan
+   style="font-weight:bold"
+   id="tspan3640">Any user </tspan>may transmit a message to the webserver with a custom command.</tspan><tspan
          sodipodi:role="line"
          x="28.32691"
          y="166.34412"
@@ -478,7 +480,7 @@
          x="28.32691"
          y="224.97308"
          style="font-weight:normal;stroke-width:0.22334844px"
-         id="tspan3533" /><tspan
+         id="tspan3533">     - Avoid implementing anything too dangerous in the webserver's response.</tspan><tspan
          sodipodi:role="line"
          x="28.32691"
          y="229.16086"
@@ -487,13 +489,18 @@
          sodipodi:role="line"
          x="28.32691"
          y="233.34865"
-         style="font-weight:normal;stroke-width:0.22334844px"
-         id="tspan3541" /><tspan
+         style="stroke-width:0.22334844px"
+         id="tspan3552">     - Consider the security of your webserver-mcserver connection and USE A FIREWALL!!</tspan><tspan
          sodipodi:role="line"
          x="28.32691"
          y="237.53642"
          style="stroke-width:0.22334844px"
-         id="tspan3552">     - Consider the security of your webserver-mcserver connection and USE A FIREWALL!!</tspan></text>
+         id="tspan3636" /><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="241.72421"
+         style="stroke-width:0.22334844px"
+         id="tspan3638" /></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.57234216px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23815614px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

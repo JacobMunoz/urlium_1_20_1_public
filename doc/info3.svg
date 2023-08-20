@@ -16,8 +16,8 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="info2.svg"
-   inkscape:export-filename="/core/Data/Games/minecraft/urlium_1_20_1/urlium1_b.png"
+   sodipodi:docname="info3.svg"
+   inkscape:export-filename="/core/Data/Games/minecraft/urlium_1_20_1/doc/urlium1_c.png"
    inkscape:export-xdpi="150"
    inkscape:export-ydpi="150">
   <defs
@@ -266,7 +266,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="364.73076"
+     inkscape:cx="244.73076"
      inkscape:cy="845.96688"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -716,7 +716,7 @@
          x="103.18751"
          y="253.75777"
          style="stroke-width:0.21295923px"
-         id="tspan3381"></tspan><tspan
+         id="tspan3381" /><tspan
          sodipodi:role="line"
          x="103.18751"
          y="257.75073"
