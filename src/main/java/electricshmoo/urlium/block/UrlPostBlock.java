@@ -126,7 +126,6 @@ public class UrlPostBlock extends Block implements PolymerTexturedBlock {
             }
         }
         return ActionResult.success(world.isClient);
-//        return super.onUse(state,world,pos,player,hand,hit);
     }
 
 
