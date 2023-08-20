@@ -17,7 +17,7 @@
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="info.svg"
-   inkscape:export-filename="/core/Data/Games/minecraft/urlium_1_20_1/urlium1_a.png"
+   inkscape:export-filename="/core/Data/Games/minecraft/urlium_1_20_1/doc/urlium1_a.png"
    inkscape:export-xdpi="150"
    inkscape:export-ydpi="150">
   <defs
@@ -265,9 +265,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="267.65891"
-     inkscape:cy="503.94651"
+     inkscape:zoom="0.7"
+     inkscape:cx="-92.56695"
+     inkscape:cy="446.32666"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -310,7 +310,7 @@
          id="tspan10"
          x="23.408878"
          y="27.32839"
-         style="stroke-width:0.45820922px">URLium 1.0.1</tspan></text>
+         style="stroke-width:0.45820922px">URLium 1.0.2</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.42390537px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.294927px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -496,28 +496,6 @@
          x="394.49976"
          y="220.35161" />
     </g>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:5.07906628px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.33860436px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="28.289448"
-       y="264.42838"
-       id="text6289-8-0-2"><tspan
-         sodipodi:role="line"
-         id="tspan6287-8-9-1"
-         x="28.289448"
-         y="264.42838"
-         style="stroke-width:0.33860436px">Featuring: &quot;Ugetblock Command&quot; </tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="28.035614"
-       y="270.43512"
-       id="text14365-5-0"><tspan
-         sodipodi:role="line"
-         x="28.035614"
-         y="270.43512"
-         style="stroke-width:0.22334845px"
-         id="tspan14375-0-1">RCON/OP &quot;/ugetblock x y z&quot; command to query block data remotely for external scripting.</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.07906628px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.33860436px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
