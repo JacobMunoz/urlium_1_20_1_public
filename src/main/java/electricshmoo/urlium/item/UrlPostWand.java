@@ -68,6 +68,7 @@ public class UrlPostWand extends Item implements PolymerItem {
                 data.put("y", clicked.getY());
                 data.put("z", clicked.getZ());
                 data.put("p", pow);
+                data.put("device", "wand");
                 data.put("hand", methodHand);
                 data.put("block", block);
                 data.put("blockState", clickedBlock);

@@ -266,8 +266,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="329.68433"
-     inkscape:cy="231.18637"
+     inkscape:cx="319.02179"
+     inkscape:cy="603.60281"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -284,7 +284,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -301,37 +301,6 @@
        y="0.22011778" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.96875px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="30.837193"
-       y="221.50696"
-       id="text14361-9"><tspan
-         sodipodi:role="line"
-         x="30.837193"
-         y="221.50696"
-         style="stroke-width:0.26458332px"
-         id="tspan14397">Configure in /config/urlium.properties:</tspan><tspan
-         sodipodi:role="line"
-         x="30.837193"
-         y="226.4679"
-         style="stroke-width:0.26458332px"
-         id="tspan3924" /><tspan
-         sodipodi:role="line"
-         x="30.837193"
-         y="231.42883"
-         style="stroke-width:0.26458332px"
-         id="tspan14399">target=https://website.to.submit/to</tspan><tspan
-         sodipodi:role="line"
-         x="30.837193"
-         y="236.38977"
-         style="stroke-width:0.26458332px"
-         id="tspan3926" /><tspan
-         sodipodi:role="line"
-         x="30.837193"
-         y="241.35071"
-         style="stroke-width:0.26458332px"
-         id="tspan3922">agent=simulated_browser_agent_name</tspan></text>
-    <text
-       xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.8731389px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.45820922px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="23.408878"
        y="27.32839"
@@ -340,7 +309,7 @@
          id="tspan10"
          x="23.408878"
          y="27.32839"
-         style="stroke-width:0.45820922px">URLium 1.0.1</tspan></text>
+         style="stroke-width:0.45820922px">URLium 1.0.2</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.42390537px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.294927px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -352,269 +321,6 @@
          x="46.716354"
          y="33.853386"
          style="stroke-width:0.294927px">By ElectricShmoo</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.32669115px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22177936px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="92.05323"
-       y="59.864452"
-       id="text14460-8-2-6"><tspan
-         sodipodi:role="line"
-         x="92.05323"
-         y="59.864452"
-         style="stroke-width:0.22177936px"
-         id="tspan14834-6-1">All server-side.  </tspan><tspan
-         sodipodi:role="line"
-         x="92.05323"
-         y="64.02282"
-         style="stroke-width:0.22177936px"
-         id="tspan19817">Just a custom world resource pack download for clients.</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:5.07906628px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.33860436px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="29.289185"
-       y="71.434578"
-       id="text6289-8-7"><tspan
-         sodipodi:role="line"
-         id="tspan6287-8-5"
-         x="29.289185"
-         y="71.434578"
-         style="stroke-width:0.33860436px">Installing:</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334844px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="30.265663"
-       y="78.635216"
-       id="text14365-9"><tspan
-         sodipodi:role="line"
-         x="30.265663"
-         y="78.635216"
-         style="stroke-width:0.22334844px"
-         id="tspan14375-2">* Place files in /mods/ folder of server:</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:5.07906628px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.33860436px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="29.418982"
-       y="56.080811"
-       id="text6289-8-7-1"><tspan
-         sodipodi:role="line"
-         id="tspan6287-8-5-7"
-         x="29.418982"
-         y="56.080811"
-         style="stroke-width:0.33860436px">Dependencies:</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="29.984074"
-       y="62.709843"
-       id="text14365-9-8"><tspan
-         sodipodi:role="line"
-         x="29.984074"
-         y="62.709843"
-         style="stroke-width:0.22334845px"
-         id="tspan14375-2-5">* Polymer 0.5.5 for Fabric 1.20.1</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="39.420006"
-       y="83.838852"
-       id="text14365-9-8-7"><tspan
-         sodipodi:role="line"
-         x="39.420006"
-         y="83.838852"
-         style="stroke-width:0.22334845px"
-         id="tspan14375-2-5-4">polymer-bundled-0.5.5+1.20.1.jar</tspan><tspan
-         sodipodi:role="line"
-         x="39.420006"
-         y="88.026634"
-         style="stroke-width:0.22334845px"
-         id="tspan16943">urlium-1.0.1.jar</tspan><tspan
-         sodipodi:role="line"
-         x="39.420006"
-         y="92.214417"
-         style="stroke-width:0.22334845px"
-         id="tspan16941" /></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="30.074066"
-       y="95.182175"
-       id="text14365-9-5"><tspan
-         sodipodi:role="line"
-         x="30.074066"
-         y="95.182175"
-         style="stroke-width:0.22334845px"
-         id="tspan14375-2-9">* Set &quot;target&quot; url in /config/urlium.properties.   Do not escape (slash \) any characters.</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="38.383018"
-       y="100.228"
-       id="text14365-9-8-7-7"><tspan
-         sodipodi:role="line"
-         x="38.383018"
-         y="100.228"
-         style="stroke-width:0.22334845px"
-         id="tspan16943-3">target=https://my.web.server/full/path/</tspan><tspan
-         sodipodi:role="line"
-         x="38.383018"
-         y="104.41578"
-         style="stroke-width:0.22334845px"
-         id="tspan16941-8" /></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="30.28323"
-       y="107.65133"
-       id="text14365-9-5-8"><tspan
-         sodipodi:role="line"
-         x="30.28323"
-         y="107.65133"
-         style="stroke-width:0.22334845px"
-         id="tspan14375-2-9-3">* Start the server and generate resource pack with polymer:</tspan><tspan
-         sodipodi:role="line"
-         x="30.28323"
-         y="111.83911"
-         style="stroke-width:0.22334845px"
-         id="tspan17028">        As 'op' admin user, or from server CLI run:</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="38.683369"
-       y="117.47873"
-       id="text14365-9-8-7-7-1"><tspan
-         sodipodi:role="line"
-         x="38.683369"
-         y="117.47873"
-         style="stroke-width:0.22334845px"
-         id="tspan16943-3-8">/polymer generate-pack</tspan><tspan
-         sodipodi:role="line"
-         x="38.683369"
-         y="121.66651"
-         style="stroke-width:0.22334845px"
-         id="tspan16941-8-9" /></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="35.015903"
-       y="123.54914"
-       id="text14365-9-5-8-6"><tspan
-         sodipodi:role="line"
-         x="35.015903"
-         y="123.54914"
-         style="stroke-width:0.22334845px"
-         id="tspan17028-3">...which will produce: /polymer-resourcepack.zip</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="30.746887"
-       y="130.23935"
-       id="text14365-9-5-8-3"><tspan
-         sodipodi:role="line"
-         x="30.746887"
-         y="130.23935"
-         style="stroke-width:0.22334845px"
-         id="tspan17028-8">* Make the polymer-resourcepack.zip file available via web download (server, dropbox, etc)</tspan><tspan
-         sodipodi:role="line"
-         x="30.746887"
-         y="134.42714"
-         style="stroke-width:0.22334845px"
-         id="tspan17076">* Add config lines to server.properties to set resource pack (ensure URL ends with ?dl\=1):</tspan><tspan
-         sodipodi:role="line"
-         x="30.746887"
-         y="138.61491"
-         style="stroke-width:0.22334845px"
-         id="tspan17078" /></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:2.8917563px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.19278374px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="40.125484"
-       y="139.23117"
-       id="text17082"><tspan
-         sodipodi:role="line"
-         id="tspan17080"
-         x="40.125484"
-         y="139.23117"
-         style="stroke-width:0.19278374px">require-resource-pack=true</tspan><tspan
-         sodipodi:role="line"
-         x="40.125484"
-         y="142.84587"
-         style="stroke-width:0.19278374px"
-         id="tspan17086">resource-pack=https\://my.web.domain/resourcepack.zip?dl\=1</tspan><tspan
-         sodipodi:role="line"
-         x="40.125484"
-         y="146.46056"
-         style="stroke-width:0.19278374px"
-         id="tspan17176">resource-pack-sha1=[optional sha1 hash]</tspan><tspan
-         sodipodi:role="line"
-         x="40.125484"
-         y="150.07526"
-         style="stroke-width:0.19278374px"
-         id="tspan17084" /></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="31.417166"
-       y="153.7265"
-       id="text14365-9-5-4"><tspan
-         sodipodi:role="line"
-         x="31.417166"
-         y="153.7265"
-         style="stroke-width:0.22334845px"
-         id="tspan14375-2-9-8">* All set!  Restart your server and check your log file to see if URLium 'target' property is loaded.</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="31.381222"
-       y="160.98358"
-       id="text14365-9-5-4-8"><tspan
-         sodipodi:role="line"
-         x="31.381222"
-         y="160.98358"
-         style="stroke-width:0.22334845px"
-         id="tspan14375-2-9-8-8">* In creative mode, you can get the URL Post Block with:</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.27308226px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21820547px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="40.027679"
-       y="166.07568"
-       id="text17154"><tspan
-         sodipodi:role="line"
-         id="tspan17152"
-         x="40.027679"
-         y="166.07568"
-         style="stroke-width:0.21820547px">/give YourUserName urlium/urlpost_block</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="32.269676"
-       y="173.7966"
-       id="text14365-9-5-4-8-9"><tspan
-         sodipodi:role="line"
-         x="32.269676"
-         y="173.7966"
-         style="stroke-width:0.22334845px"
-         id="tspan14375-2-9-8-8-7">* Place a URL Post Block and connect it to activated redstone, or click a block with the Wand.  </tspan><tspan
-         sodipodi:role="line"
-         x="32.269676"
-         y="177.98439"
-         style="stroke-width:0.22334845px"
-         id="tspan17174">        The target URL should receive data like:  </tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="41.096603"
-       y="184.64433"
-       id="text14365-9-8-7-7-1-7"><tspan
-         sodipodi:role="line"
-         x="41.096603"
-         y="184.64433"
-         style="stroke-width:0.22334845px"
-         id="tspan16941-8-9-4">{&quot;p&quot;:&quot;15&quot;,&quot;method&quot;:&quot;sense&quot;,&quot;x&quot;:&quot;-30&quot;,&quot;y&quot;:&quot;71&quot;,&quot;z&quot;:&quot;-149&quot;,</tspan><tspan
-         sodipodi:role="line"
-         x="41.096603"
-         y="188.83212"
-         style="stroke-width:0.22334845px"
-         id="tspan18998">  &quot;device&quot;:&quot;block&quot;,&quot;user&quot;:&quot;&quot;,&quot;ts&quot;:&quot;1691307209360&quot;}</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.02132225px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.20142151px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -631,32 +337,6 @@
          y="184.14566"
          style="stroke-width:0.20142151px"
          id="tspan16941-8-3" /></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.4383738px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22922491px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="41.371307"
-       y="197.25179"
-       id="text18974"><tspan
-         sodipodi:role="line"
-         x="41.371307"
-         y="197.25179"
-         style="stroke-width:0.22922491px"
-         id="tspan18978">{&quot;p&quot;:&quot;0&quot;,&quot;method&quot;:&quot;MAIN_HAND&quot;,&quot;x&quot;:&quot;-32&quot;,&quot;y&quot;:&quot;70&quot;,&quot;z&quot;:&quot;-149&quot;,</tspan><tspan
-         sodipodi:role="line"
-         x="41.371307"
-         y="201.54976"
-         style="stroke-width:0.22922491px"
-         id="tspan18989">  &quot;block&quot;:&quot;translation{key='block.minecraft.grass_block', args=[]}&quot;,&quot;device&quot;:&quot;wand&quot;,</tspan><tspan
-         sodipodi:role="line"
-         x="41.371307"
-         y="205.84772"
-         style="stroke-width:0.22922491px"
-         id="tspan18991">  &quot;user&quot;:&quot;ElectricShmoo&quot;,&quot;ts&quot;:&quot;1691307156474&quot;}</tspan><tspan
-         sodipodi:role="line"
-         x="41.371307"
-         y="210.14569"
-         style="stroke-width:0.22922491px"
-         id="tspan18987" /></text>
     <g
        transform="matrix(0.33528719,0,0,0.33528719,-42.000269,-53.31928)"
        id="g19493">
@@ -683,13 +363,225 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.07906628px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.33860436px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="29.192005"
-       y="215.64163"
-       id="text6289-8-7-3"><tspan
+       x="29.567793"
+       y="60.012463"
+       id="text6289-8-0-2"><tspan
          sodipodi:role="line"
-         id="tspan6287-8-5-6"
-         x="29.192005"
-         y="215.64163"
-         style="stroke-width:0.33860436px">Setup:</tspan></text>
+         id="tspan6287-8-9-1"
+         x="29.567793"
+         y="60.012463"
+         style="stroke-width:0.33860436px">Featuring: &quot;Ugetblock Command&quot; </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="30.372297"
+       y="66.548378"
+       id="text14365-5-0"><tspan
+         sodipodi:role="line"
+         x="30.372297"
+         y="66.548378"
+         style="stroke-width:0.22334845px"
+         id="tspan14375-0-1">RCON/OP &quot;/ugetblock x y z&quot; command to query block data remotely for external scripting.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.07906628px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.33860436px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="27.451122"
+       y="153.47493"
+       id="text6289-8-0-2-3"><tspan
+         sodipodi:role="line"
+         id="tspan6287-8-9-1-6"
+         x="27.451122"
+         y="153.47493"
+         style="stroke-width:0.33860436px">Featuring: &quot;/webcom Command&quot; </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334844px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="28.32691"
+       y="162.15633"
+       id="text14365"><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="162.15633"
+         style="stroke-width:0.22334844px"
+         id="tspan14375">Any user may transmit a message to the webserver with a custom command.</tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="166.34412"
+         style="stroke-width:0.22334844px"
+         id="tspan3456" /><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="170.53189"
+         style="stroke-width:0.22334844px"
+         id="tspan3472">The actual name of the command is &quot;webcom&quot; by default, but can be configured to anything.</tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="174.71968"
+         style="stroke-width:0.22334844px"
+         id="tspan3458" /><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="178.90746"
+         style="stroke-width:0.22334844px"
+         id="tspan3464">Command name is config value is set as: </tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="183.09525"
+         style="stroke-width:0.22334844px"
+         id="tspan3462">       messageCommand=webcom</tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="187.28302"
+         style="stroke-width:0.22334844px"
+         id="tspan3484" /><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="191.47081"
+         style="stroke-width:0.22334844px"
+         id="tspan3486">The POST message sent to the server includes the username, timestamp, and message:</tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="195.6586"
+         style="stroke-width:0.22334844px"
+         id="tspan3488" /><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="199.84637"
+         style="stroke-width:0.22334844px"
+         id="tspan3498">{ &quot;message&quot;:&quot;This is some text to send to the server :)&quot;, &quot;device&quot;:&quot;message&quot;, </tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="204.03416"
+         style="stroke-width:0.22334844px"
+         id="tspan3502">   &quot;user&quot;:&quot;ElectricShmoo&quot;, &quot;ts&quot; : &quot;1692518860884&quot; }</tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="208.22194"
+         style="stroke-width:0.22334844px"
+         id="tspan3518" /><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="212.40973"
+         style="stroke-width:0.22334844px"
+         id="tspan3539">Things to consider when writing a server-side receiver for these messages:</tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="216.5975"
+         style="stroke-width:0.22334844px"
+         id="tspan3537" /><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="220.78529"
+         style="font-weight:normal;stroke-width:0.22334844px"
+         id="tspan3522">     - Consider the implications of the received message (filter for authority if necessary).</tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="224.97308"
+         style="font-weight:normal;stroke-width:0.22334844px"
+         id="tspan3533" /><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="229.16086"
+         style="font-weight:normal;stroke-width:0.22334844px"
+         id="tspan3535">     - If using 3rd-party or A.I. APIs, consider the implications of data collection.</tspan><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="233.34865"
+         style="font-weight:normal;stroke-width:0.22334844px"
+         id="tspan3541" /><tspan
+         sodipodi:role="line"
+         x="28.32691"
+         y="237.53642"
+         style="stroke-width:0.22334844px"
+         id="tspan3552">     - Consider the security of your webserver-mcserver connection and USE A FIREWALL!!</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.57234216px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23815614px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="42.264717"
+       y="76.149719"
+       id="text3560"><tspan
+         sodipodi:role="line"
+         x="42.264717"
+         y="76.149719"
+         style="stroke-width:0.23815614px"
+         id="tspan3578">command: /ugetblock -37 71 -130</tspan><tspan
+         sodipodi:role="line"
+         x="42.264717"
+         y="80.61515"
+         style="stroke-width:0.23815614px"
+         id="tspan3564" /><tspan
+         sodipodi:role="line"
+         x="42.264717"
+         y="85.080574"
+         style="stroke-width:0.23815614px"
+         id="tspan3566">returns: minecraft:grass_block[snowy=false]</tspan><tspan
+         sodipodi:role="line"
+         x="42.264717"
+         y="89.546005"
+         style="stroke-width:0.23815614px"
+         id="tspan3584" /><tspan
+         sodipodi:role="line"
+         x="42.264717"
+         y="94.011429"
+         style="stroke-width:0.23815614px"
+         id="tspan3570">...          minecraft:log[axis=x]</tspan><tspan
+         sodipodi:role="line"
+         x="42.264717"
+         y="98.47686"
+         style="stroke-width:0.23815614px"
+         id="tspan3574">...          minecraft:jungle_stairs[facing=west,half=bottom,shape=straight....</tspan><tspan
+         sodipodi:role="line"
+         x="42.264717"
+         y="102.94228"
+         style="stroke-width:0.23815614px"
+         id="tspan3588" /><tspan
+         sodipodi:role="line"
+         x="42.264717"
+         y="107.40771"
+         style="stroke-width:0.23815614px"
+         id="tspan3576" /><tspan
+         sodipodi:role="line"
+         x="42.264717"
+         y="111.87314"
+         style="stroke-width:0.23815614px"
+         id="tspan3562" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.38299632px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22553307px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="55.010937"
+       y="117.84641"
+       id="text3594"><tspan
+         sodipodi:role="line"
+         id="tspan3592"
+         x="55.010937"
+         y="117.84641"
+         style="stroke-width:0.22553307px">minecraft:chest[facing=east,type=single,waterlogged=false]</tspan><tspan
+         sodipodi:role="line"
+         x="55.010937"
+         y="122.07515"
+         style="stroke-width:0.22553307px"
+         id="tspan3614">{Items:[{Count:1b,Slot:0b,id:&quot;minecraft:dirt&quot;}]}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="31.279411"
+       y="108.0668"
+       id="text14365-5-0-6"><tspan
+         sodipodi:role="line"
+         x="31.279411"
+         y="108.0668"
+         style="stroke-width:0.22334845px"
+         id="tspan14375-0-1-2">Read container contents from blockstate of any block:</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="29.921194"
+       y="134.1472"
+       id="text14365-5-0-6-9"><tspan
+         sodipodi:role="line"
+         x="29.921194"
+         y="134.1472"
+         style="stroke-width:0.22334845px"
+         id="tspan14375-0-1-2-1">Return this data to webserver script and proceed accordingly.</tspan></text>
   </g>
 </svg>
