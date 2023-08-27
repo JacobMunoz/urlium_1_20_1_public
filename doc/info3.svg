@@ -294,9 +294,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="120.80219"
-     inkscape:cy="845.96688"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="200.79261"
+     inkscape:cy="705.63424"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -379,7 +379,7 @@
          id="tspan10"
          x="23.408878"
          y="27.32839"
-         style="stroke-width:0.45820922px">URLium 1.0.2</tspan></text>
+         style="stroke-width:0.45820922px">URLium 1.0.3</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.42390537px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.294927px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -394,16 +394,16 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.32669115px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22177936px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="92.05323"
+       x="96.815735"
        y="59.864452"
        id="text14460-8-2-6"><tspan
          sodipodi:role="line"
-         x="92.05323"
+         x="96.815735"
          y="59.864452"
          style="stroke-width:0.22177936px"
          id="tspan14834-6-1">All server-side.  </tspan><tspan
          sodipodi:role="line"
-         x="92.05323"
+         x="96.815735"
          y="64.02282"
          style="stroke-width:0.22177936px"
          id="tspan19817">Just a custom world resource pack download for clients.</tspan></text>
@@ -450,7 +450,11 @@
          x="29.984074"
          y="62.709843"
          style="stroke-width:0.22334845px"
-         id="tspan14375-2-5">* Polymer 0.5.5 for Fabric 1.20.1</tspan></text>
+         id="tspan14375-2-5">* <tspan
+   style="font-weight:bold"
+   id="tspan1013">Polymer 0.5.14</tspan> for <tspan
+   style="font-weight:bold"
+   id="tspan1015">Fabric 1.20.1</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.3502264px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22334845px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -461,12 +465,12 @@
          x="39.420006"
          y="83.838852"
          style="stroke-width:0.22334845px"
-         id="tspan14375-2-5-4">polymer-bundled-0.5.5+1.20.1.jar</tspan><tspan
+         id="tspan14375-2-5-4">polymer-bundled-0.5.14+1.20.1.jar</tspan><tspan
          sodipodi:role="line"
          x="39.420006"
          y="88.026634"
          style="stroke-width:0.22334845px"
-         id="tspan16943">urlium-1.0.2.jar</tspan><tspan
+         id="tspan16943">urlium-1.0.3.jar</tspan><tspan
          sodipodi:role="line"
          x="39.420006"
          y="92.214417"
