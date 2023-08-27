@@ -55,7 +55,7 @@ public class UrlComMod implements ModInitializer {
 		PolymerResourcePackUtils.addModAssets(MOD_ID);
 
 		postUrl = getConfigData("target", "");
-		userAgent = getConfigData("agent","urlium_1.0.2");
+		userAgent = getConfigData("agent","urlium_1.0.3");
 		messageCommandName = getConfigData("messageCommand","webcom");
 
 		registerPostBlock();
@@ -96,7 +96,7 @@ public class UrlComMod implements ModInitializer {
 				writer.write("#set target to the http(s) url to send data to\n");
 				writer.write("target=");
 				writer.write("#set agent to the User-Agent header to be transmitted (browser name)\n");
-				writer.write("agent=urlium_1.0.2");
+				writer.write("agent=urlium_1.0.3");
 				writer.write("#command name to transmit user messages to server\n");
 				writer.write("messageCommand=webcom");
 				writer.close();

@@ -7,29 +7,36 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.BlockArgumentParser;
 import net.minecraft.command.argument.BlockPosArgumentType;
+import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+
 public class QueryCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher,
                                 CommandRegistryAccess commandRegistryAccess,
                                 CommandManager.RegistrationEnvironment registrationEnvironment) {
         dispatcher.register(
-                CommandManager.literal("ugetblock")
-                        .then(CommandManager.argument("pos", BlockPosArgumentType.blockPos())
-                                .executes(context -> execute(context, BlockPosArgumentType.getLoadedBlockPos(context, "pos")))
-                        )
+            CommandManager.literal("ugetblock")
+            .then(CommandManager.argument("pos", BlockPosArgumentType.blockPos())
+                .then(CommandManager.argument("world", DimensionArgumentType.dimension())
+                    .executes(context -> execute(context, BlockPosArgumentType.getBlockPos(context, "pos"), DimensionArgumentType.getDimensionArgument(context, "world")))
+                )
+                .executes(context -> execute(context, BlockPosArgumentType.getBlockPos(context, "pos"), context.getSource().getWorld()))
+            )
+            .executes(context -> execute(context, BlockPosArgumentType.getBlockPos(context, "pos"),context.getSource().getWorld()))
         );
     }
 
-    private static int execute(CommandContext<ServerCommandSource> context, BlockPos pos) {
+    private static int execute(CommandContext<ServerCommandSource> context, BlockPos pos, ServerWorld world) {
         ServerCommandSource source = context.getSource();
-        BlockState blockState = source.getWorld().getBlockState(pos);
-        ServerWorld world = context.getSource().getWorld();
+//      BlockState blockState = source.getWorld().getBlockState(pos);
+        BlockState blockState = world.getBlockState(pos);
+
         StringBuilder stringBuilder = new StringBuilder(BlockArgumentParser.stringifyBlockState(blockState));
         if (blockState.hasBlockEntity()) {
             BlockEntity blockEntity =  world.getBlockEntity(pos);

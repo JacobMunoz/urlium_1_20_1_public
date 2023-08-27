@@ -50,6 +50,7 @@ public class UrlConfigWand extends Item implements PolymerItem {
                 (
                     clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.chest") ||
                     clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.lectern") ||
+                    clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.barrel") ||
                     clickedBlock.getBlock().getTranslationKey().indexOf("_sign")>0
                 )
             ) {
@@ -62,14 +63,13 @@ public class UrlConfigWand extends Item implements PolymerItem {
                 } else {
                     int[] coords = new int[]{clicked.getX(), clicked.getY(), clicked.getZ()};
                     pdata.putIntArray("report", coords);
-                    pdata.putString("blocktype","chest");
                     String blockType = clickedBlock.getBlock().getTranslationKey();
                     String shortName = blockType.substring(blockType.lastIndexOf(".")+1 );
                     pdata.putString("blocktype",shortName);
                     player.sendMessage(Text.literal("Change reporting on this "+shortName+" enabled."), false);
                 }
             }  else {
-                player.sendMessage(Text.literal("Target block is NOT a Sign, Chest or Lectern, it is a: "+clickedBlock.getBlock().getTranslationKey()+".  Signs, normal chests, and lecterns only, sorry."), false);
+                player.sendMessage(Text.literal("Target block is NOT a Sign, Chest, Barrel, or Lectern, it is a: "+clickedBlock.getBlock().getTranslationKey()+".  Signs, normal chests, and lecterns only, sorry."), false);
             }
         }
         return ActionResult.SUCCESS;

@@ -3,10 +3,8 @@ package electricshmoo.urlium.mixin;
 import com.google.gson.Gson;
 import electricshmoo.urlium.UrlComMod;
 import electricshmoo.urlium.util.IBlockEntityDataSaver;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.LecternBlock;
-import net.minecraft.block.SignBlock;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LecternBlockEntity;
 import net.minecraft.block.entity.SignBlockEntity;
@@ -64,8 +62,9 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                 StringBuilder result = new StringBuilder();
                 long unixTime = System.currentTimeMillis();
                 Map<Object, Object> data = new HashMap<>();
+                String blockType = persistData.getString("blocktype");
 
-                if (persistData.getString("blocktype").equals("chest")) {
+                if (blockType.equals("chest")) {
                     ChestBlock block = (ChestBlock) blockState.getBlock();
                     Inventory inv  = getInventory(block, blockState, world, blockPos, true);
                     Gson gson = new Gson();
@@ -82,13 +81,28 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                     }
                     result.append("}");
                     data.put("device", "chest");
-                    data.put("blockState", blockStateString);
                     data.put("inventory", result.toString());
-                } else if (persistData.getString("blocktype").equals("lectern")) {
+                } else if (blockType.equals("barrel")) {
+                    BarrelBlockEntity barrelEntity = (BarrelBlockEntity) world.getBlockEntity(blockPos);
+                    Gson gson = new Gson();
+                    result.append("{");
+                    for (int slot = 0; slot < barrelEntity.size(); slot++) {
+                        ItemStack stack = barrelEntity.getStack(slot);
+                        if (!stack.isEmpty()) {
+                            if (slot > 0) result.append(",");
+                            result.append("\"slot\":"+Integer.toString( slot )+",");
+                            result.append("\"count\":"+Integer.toString( stack.getCount() )+",");
+                            result.append("\"item\":"+gson.toJson(stack.getItem().toString())+",");
+                            result.append("\"name\":"+gson.toJson(stack.getName().getString()));
+                        }
+                    }
+                    result.append("}");
+                    data.put("device", "barrel");
+                    data.put("inventory", result.toString());
+                } else if (blockType.equals("lectern")) {
                     LecternBlock block = (LecternBlock) blockState.getBlock();
                     LecternBlockEntity blockEntity = (LecternBlockEntity) world.getBlockEntity(blockPos);
                     data.put("device", "lectern");
-                    data.put("blockState", blockStateString);
                     if (blockEntity.hasBook()) {
                         ItemStack book = blockEntity.getBook();
                         NbtCompound bookNbt = book.getNbt();
@@ -97,12 +111,10 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                     } else {
                         data.put("bookContents", "");
                     }
-                } else if (persistData.getString("blocktype").indexOf("_sign")>0) {
+                } else if (blockType.indexOf("_sign")>0) {
                     SignBlock block = (SignBlock) blockState.getBlock();
                     SignBlockEntity blockEntity = (SignBlockEntity) world.getBlockEntity(blockPos);
                     data.put("device", persistData.getString("blocktype"));
-                    data.put("blockState", blockStateString);
-
                     Text[] frontTextMessages = blockEntity.getFrontText().getMessages(false);
                     String frontText = "[";
                     for (int i = 0; i < frontTextMessages.length; i++) {
@@ -124,13 +136,14 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                 } else {
                     return;
                 }
+                data.put("blockState", blockStateString);
                 data.put("ts", unixTime);
                 data.put("x", coords[0]);
                 data.put("y", coords[1]);
                 data.put("z", coords[2]);
                 try {
                     UrlComMod.sendPOST(data);
-                    UrlComMod.LOGGER.info("Reported on container at: " + coords[0] + " "+coords[1]+" "+coords[2] );
+                    UrlComMod.LOGGER.info("Reported on BlockEntity at: " + coords[0] + " "+coords[1]+" "+coords[2] );
                 } catch (IOException ignore) {
                     UrlComMod.LOGGER.info("Failed to send post report on container at: " + coords[0] + " "+coords[1]+" "+coords[2] );
                 }
