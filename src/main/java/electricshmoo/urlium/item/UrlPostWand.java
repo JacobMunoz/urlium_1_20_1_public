@@ -63,7 +63,6 @@ public class UrlPostWand extends Item implements PolymerItem {
                 Map<Object, Object> data = new HashMap<>();
                 long unixTime = System.currentTimeMillis();
 
-                data.put("ts", unixTime);
                 data.put("x", clicked.getX());
                 data.put("y", clicked.getY());
                 data.put("z", clicked.getZ());
@@ -73,6 +72,7 @@ public class UrlPostWand extends Item implements PolymerItem {
                 data.put("block", block);
                 data.put("blockState", clickedBlock);
                 data.put("user", userName);
+                data.put("ts", unixTime);
 
                 UrlComMod.sendPOST(data);
 

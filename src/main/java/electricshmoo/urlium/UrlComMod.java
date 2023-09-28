@@ -29,6 +29,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +41,8 @@ public class UrlComMod implements ModInitializer {
 	private static String postUrl;
 	private static String userAgent;
 	private static String messageCommandName;
-
+	private static String messageAuthenctication;
+	public static Map<String, String> previousMessages = new HashMap<>();
 	public static final String URL_POST_BLOCK_ID_STRING = "block/urlpost_block";
 	public static final Identifier URL_POST_BLOCK_ID = new Identifier(MOD_ID, URL_POST_BLOCK_ID_STRING);
 	public static final String URL_POST_WAND_ID_STRING = "item/urlpostwand_item";
@@ -55,8 +57,9 @@ public class UrlComMod implements ModInitializer {
 		PolymerResourcePackUtils.addModAssets(MOD_ID);
 
 		postUrl = getConfigData("target", "");
-		userAgent = getConfigData("agent","urlium_1.0.3");
+		userAgent = getConfigData("agent","urlium_1.1.0");
 		messageCommandName = getConfigData("messageCommand","webcom");
+		messageAuthenctication = getConfigData("securityToken","secret_token");
 
 		registerPostBlock();
 		registerPostWand();
@@ -96,7 +99,9 @@ public class UrlComMod implements ModInitializer {
 				writer.write("#set target to the http(s) url to send data to\n");
 				writer.write("target=");
 				writer.write("#set agent to the User-Agent header to be transmitted (browser name)\n");
-				writer.write("agent=urlium_1.0.3");
+				writer.write("agent=urlium_1.1.0");
+				writer.write("#optional authentication value to send to webserver as shared secret\n");
+				writer.write("securityToken=secret_token");
 				writer.write("#command name to transmit user messages to server\n");
 				writer.write("messageCommand=webcom");
 				writer.close();
@@ -128,6 +133,8 @@ public class UrlComMod implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(ServerCommand::register);
 	}
 
+
+
 	public static void sendPOST(Map<Object, Object> data ) throws IOException {
 		if (postUrl.equals("")) {
 			LOGGER.info("URLium target config is blank.  No POST transmitted.");
@@ -139,6 +146,7 @@ public class UrlComMod implements ModInitializer {
 				.timeout(Duration.ofSeconds(5))
 				.header("User-Agent", userAgent)
 				.header("Content-Type", "application/x-www-form-urlencoded")
+				.header("Authentication", "Bearer " + messageAuthenctication)
 				.build();
 
 		HttpClient client = HttpClient.newBuilder().build();
@@ -162,5 +170,25 @@ public class UrlComMod implements ModInitializer {
 	public static void getResponse(String data) {
 		UrlComMod.LOGGER.info("POST Response Data: " + data);
 	}
-
+	public static String generateMapHash(Map<Object, Object> dataMap) {
+		int hashCode = dataMap.hashCode();
+		return Integer.toHexString(hashCode);
+	}
+	public static boolean filterUpdate(Map<Object, Object> message) {
+		// Extract the X, Y, Z coordinates and data from the message map.
+		String hash = (String)message.get("hash");
+		String coordinateKey = (int)message.get("x") + "_" + (int)message.get("y") + "_" + (int)message.get("z");
+		if (previousMessages.containsKey(coordinateKey)) {
+			Object previousData = previousMessages.get(coordinateKey);
+			if (!hash.equals(previousData)) {
+				previousMessages.put(coordinateKey, hash);
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			previousMessages.put(coordinateKey, hash);
+			return true;
+		}
+	}
 }
