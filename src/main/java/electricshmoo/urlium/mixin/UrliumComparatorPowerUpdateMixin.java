@@ -45,9 +45,7 @@ public abstract class UrliumComparatorPowerUpdateMixin  implements IBlockEntityD
                 data.put("ts", unixTime);
                 try {
                     UrlComMod.sendPOST(data);
-                    UrlComMod.LOGGER.info("Reported on comparator at: " + pos.getX()+ " " + pos.getY() + " " + pos.getZ());
                 } catch (IOException ignore) {
-                    UrlComMod.LOGGER.info("Failed to send post report on comparator at: " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
                 }
             }
         }

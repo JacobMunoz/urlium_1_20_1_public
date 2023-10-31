@@ -5,6 +5,8 @@
   "mixins": [
     "UrliumBlockEntityDataSaverMixin",
     "UrliumItemDataSaverMixin",
+    "UrliumEntityResponderMixin",
+    "UrliumMobInteractionMixin",
     "UrliumComparatorPowerUpdateMixin",
     "UrliumSculkSensorUpdateMixin"
   ],

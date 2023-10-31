@@ -1,8 +1,7 @@
 package electricshmoo.urlium;
 
 import electricshmoo.urlium.block.UrlPostBlock;
-import electricshmoo.urlium.command.QueryCommand;
-import electricshmoo.urlium.command.ServerCommand;
+import electricshmoo.urlium.command.*;
 import electricshmoo.urlium.item.UrlConfigWand;
 import electricshmoo.urlium.item.UrlPostBlockItem;
 import electricshmoo.urlium.item.UrlPostWand;
@@ -40,8 +39,15 @@ public class UrlComMod implements ModInitializer {
 	public static Block URL_POST_BLOCK = null;
 	private static String postUrl;
 	private static String userAgent;
-	private static String messageCommandName;
-	private static String messageAuthenctication;
+	private static String messageCommand1Name;
+	private static String messageCommand2Name;
+	private static String messageCommand3Name;
+	public static int messageCommand1Level;
+	public static int messageCommand2Level;
+	public static int messageCommand3Level;
+	private static String messageAuthentication;
+	public static int usetblocklevel;
+	public static int ugetblocklevel;
 	public static Map<String, String> previousMessages = new HashMap<>();
 	public static final String URL_POST_BLOCK_ID_STRING = "block/urlpost_block";
 	public static final Identifier URL_POST_BLOCK_ID = new Identifier(MOD_ID, URL_POST_BLOCK_ID_STRING);
@@ -49,28 +55,68 @@ public class UrlComMod implements ModInitializer {
 	public static final Identifier URL_POST_WAND_ID = new Identifier(MOD_ID, URL_POST_WAND_ID_STRING);
 	public static final String URL_CONFIG_WAND_ID_STRING = "item/urlconfigwand_item";
 	public static final Identifier URL_CONFIG_WAND_ID = new Identifier(MOD_ID, URL_CONFIG_WAND_ID_STRING);
+	public static Item ConfigWand;
 
 	public void onInitialize() {
-		LOGGER.info("URLium initializing...");
+		LOGGER.info("URLium 1.2.0 initializing...");
 
 		PolymerResourcePackUtils.markAsRequired();
 		PolymerResourcePackUtils.addModAssets(MOD_ID);
 
 		postUrl = getConfigData("target", "");
-		userAgent = getConfigData("agent","urlium_1.1.0");
-		messageCommandName = getConfigData("messageCommand","webcom");
-		messageAuthenctication = getConfigData("securityToken","secret_token");
+		LOGGER.info("Setting: target URL: "+postUrl+".");
 
+		userAgent = getConfigData("agent","urlium_1.2.0");
+		LOGGER.info("Setting: http user agent: "+userAgent+".");
+
+		messageCommand1Name = getConfigData("messageCommand","webcom");
+		messageCommand1Level = Integer.parseInt(getConfigData("messageCommandLevel","0"));
+		messageCommand2Name = getConfigData("messageCommand2","webcom2");
+		messageCommand2Level = Integer.parseInt(getConfigData("messageCommand2Level","-1"));
+		messageCommand3Name = getConfigData("messageCommand3","webcom3");
+		messageCommand3Level = Integer.parseInt(getConfigData("messageCommand3Level","-1"));
+		messageAuthentication = getConfigData("securityToken","");
+		ugetblocklevel = Integer.parseInt(getConfigData("ugetblockLevel","2"));
+		usetblocklevel = Integer.parseInt(getConfigData("usetblockLevel","2"));
+
+		if ( !messageAuthentication.equals("") ){
+			LOGGER.info("Setting: securityToken loaded.");
+		}
 		registerPostBlock();
 		registerPostWand();
 		registerConfigWand();
-		registerQueryCommand();
-		registerServerMessageCommand();
+		if (ugetblocklevel >= 0 ) {
+			registerUGetBlockCommand(); // allow config to use -1 to disable
+			LOGGER.info("Setting: ugetblock enabled for user level: "+ugetblocklevel+".");
+		}
+		if (usetblocklevel >= 0 ) {
+			registerUSetBlockCommand(); // allow config to use -1 to disable
+			LOGGER.info("Setting: usetblock enabled for user level: "+usetblocklevel+".");
+		}
+
+		if (messageCommand1Level>=0) {
+			LOGGER.info("Setting: messageCommand ("+messageCommand1Name+") enabled for user level: "+messageCommand1Level+".");
+			registerServerMessageCommand1();
+		}
+		if (messageCommand2Level>=0) {
+			LOGGER.info("Setting: messageCommand2 ("+messageCommand2Name+") enabled for user level: "+messageCommand2Level+".");
+			registerServerMessageCommand2();
+		}
+		if (messageCommand3Level>=0) {
+			LOGGER.info("Setting: messageCommand3 ("+messageCommand3Name+") enabled for user level: "+messageCommand3Level+".");
+			registerServerMessageCommand3();
+		}
 
 		LOGGER.info("URLium initialized.");
 	}
-	public static String getMessageComandName(){
-		return messageCommandName;
+	public static String getMessageCommand1Name(){
+		return messageCommand1Name;
+	}
+	public static String getMessageCommand2Name(){
+		return messageCommand2Name;
+	}
+	public static String getMessageCommand3Name(){
+		return messageCommand3Name;
 	}
 	private static String getConfigData(String param, String deefault) {
 		File f = new File("./config/urlium.properties");
@@ -84,7 +130,7 @@ public class UrlComMod implements ModInitializer {
 						String para = line.substring(0,line.indexOf("="));
 						String val = line.substring(line.indexOf("=")+1);
 						if (para.equals(param)) {
-							LOGGER.info("URLium Param " + para + " = " + val);
+//							LOGGER.info("URLium Param " + para + " = " + val);
 							return val;
 						}
 					}
@@ -99,11 +145,25 @@ public class UrlComMod implements ModInitializer {
 				writer.write("#set target to the http(s) url to send data to\n");
 				writer.write("target=");
 				writer.write("#set agent to the User-Agent header to be transmitted (browser name)\n");
-				writer.write("agent=urlium_1.1.0");
+				writer.write("agent=urlium_1.2.0");
 				writer.write("#optional authentication value to send to webserver as shared secret\n");
 				writer.write("securityToken=secret_token");
 				writer.write("#command name to transmit user messages to server\n");
 				writer.write("messageCommand=webcom");
+				writer.write("#command user permission level.  use -1 to disable completely\n");
+				writer.write("messageCommandLevel=0");
+				writer.write("#command name to transmit user messages to server\n");
+				writer.write("messageCommand2=webcom2");
+				writer.write("#command user permission level.  use -1 to disable completely\n");
+				writer.write("messageCommand2Level=-1");
+				writer.write("#command name to transmit user messages to server\n");
+				writer.write("messageCommand3=webcom3");
+				writer.write("#command user permission level.  use -1 to disable completely\n");
+				writer.write("messageCommand3Level=-1");
+				writer.write("#/usetblock command user permission level.  use -1 to disable completely\n");
+				writer.write("usetblockLevel=2");
+				writer.write("#/ugetblock command user permission level.  use -1 to disable completely\n");
+				writer.write("ugetblockLevel=2");
 				writer.close();
 				LOGGER.info("Wrote default config file (urlium.properties)  Please set 'target'.");
 			} catch (IOException e) {
@@ -123,14 +183,23 @@ public class UrlComMod implements ModInitializer {
 		Registry.register(Registries.ITEM, URL_POST_WAND_ID, item);
 	}
 	public static void registerConfigWand() {
-		var item = new UrlConfigWand(new Item.Settings(), URL_CONFIG_WAND_ID_STRING);
-		Registry.register(Registries.ITEM, URL_CONFIG_WAND_ID, item);
+		ConfigWand = new UrlConfigWand(new Item.Settings(), URL_CONFIG_WAND_ID_STRING);
+		Registry.register(Registries.ITEM, URL_CONFIG_WAND_ID, ConfigWand);
 	}
-	public static void registerQueryCommand(){
-		CommandRegistrationCallback.EVENT.register(QueryCommand::register);
+	public static void registerUGetBlockCommand(){
+		CommandRegistrationCallback.EVENT.register(UGetBlockCommand::register);
 	}
-	public static void registerServerMessageCommand(){
-		CommandRegistrationCallback.EVENT.register(ServerCommand::register);
+	public static void registerUSetBlockCommand(){
+		CommandRegistrationCallback.EVENT.register(USetBlockCommand::register);
+	}
+	public static void registerServerMessageCommand1(){
+		CommandRegistrationCallback.EVENT.register(ServerCommand1::register);
+	}
+	public static void registerServerMessageCommand2(){
+		CommandRegistrationCallback.EVENT.register(ServerCommand2::register);
+	}
+	public static void registerServerMessageCommand3(){
+		CommandRegistrationCallback.EVENT.register(ServerCommand3::register);
 	}
 
 
@@ -146,7 +215,7 @@ public class UrlComMod implements ModInitializer {
 				.timeout(Duration.ofSeconds(5))
 				.header("User-Agent", userAgent)
 				.header("Content-Type", "application/x-www-form-urlencoded")
-				.header("Authentication", "Bearer " + messageAuthenctication)
+				.header("Authentication", "Bearer " + messageAuthentication)
 				.build();
 
 		HttpClient client = HttpClient.newBuilder().build();

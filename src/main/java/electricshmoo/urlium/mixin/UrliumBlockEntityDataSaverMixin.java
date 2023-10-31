@@ -114,7 +114,6 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                     data.put("inventory", inventoryString.toString());
                     data.put("blockState", blockStateString);
 
-
                 } else if (blockType.equals("barrel")) {
                     BarrelBlockEntity barrelEntity = (BarrelBlockEntity) world.getBlockEntity(blockPos);
                     Gson gson = new Gson();
@@ -136,6 +135,29 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                     }
                     inventoryString.append("}");
                     data.put("device", "barrel");
+                    data.put("inventory", inventoryString.toString());
+                    data.put("blockState", blockStateString);
+
+                } else if (blockType.equals("hopper")) {
+                    HopperBlockEntity hopperEntity = (HopperBlockEntity) world.getBlockEntity(blockPos);
+                    Gson gson = new Gson();
+                    StringBuilder inventoryString = new StringBuilder();
+                    inventoryString.append("{");
+                    boolean inventorySuffix = false;
+                    for (int slot = 0; slot < hopperEntity.size(); slot++) {
+                        ItemStack stack = hopperEntity.getStack(slot);
+                        if (!stack.isEmpty()) {
+                            if (inventorySuffix) inventoryString.append(",");
+                            inventoryString.append("\""+Integer.toString( slot )+"\":{");
+                            inventoryString.append("\"count\":"+Integer.toString( stack.getCount() )+",");
+                            inventoryString.append("\"item\":"+gson.toJson(stack.getItem().toString())+",");
+                            inventoryString.append("\"name\":"+gson.toJson(stack.getName().getString()));
+                            inventoryString.append("}");
+                            inventorySuffix = true;
+                        }
+                    }
+                    inventoryString.append("}");
+                    data.put("device", "hopper");
                     data.put("inventory", inventoryString.toString());
                     data.put("blockState", blockStateString);
 
@@ -232,9 +254,7 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                     data.put("ts", unixTime);
                     try {
                         sendPOST(data);
-                        UrlComMod.LOGGER.info("Reported on BlockEntity at: " + coords[0] + " " + coords[1] + " " + coords[2]);
                     } catch (IOException ignore) {
-                        UrlComMod.LOGGER.info("Failed to send post report on container at: " + coords[0] + " " + coords[1] + " " + coords[2]);
                     }
                 }
             }
