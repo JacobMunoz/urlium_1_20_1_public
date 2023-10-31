@@ -215,9 +215,7 @@ class Rcon
                 if ($packet_pack['type'] == self::SERVERDATA_RESPONSE_VALUE) {
                     $this->lastResponse = $packet_pack['body'];
                     $packData .= substr($packet_pack['body'], 0, -2);
-                    // if size is > 4096, the response will be in multiple packets.
-                    // using values near 4096 does not work, unsure why - this value works, but may miss some edge cases - may be related to char encoding?
-                    if (strlen($packet_pack['body']) >= 3508) $morePaks = true; 
+                    if (strlen($packet_pack['body']) > 3507) $morePaks = true;  // modify this '3507' value if needed - possible utf16 conversion issue.
                     else $morePaks = false;
                     usleep($this->responseDelay);
                 }

@@ -2,156 +2,223 @@
 /*
  Sample PHP RCON Script for URLium Fabric Mod
 
-    This is a script that would receive data from the URLium 1.0.2 Fabric Mod 
+    This is a script that would receive data from the URLium 1.2.0 Fabric Mod 
         and respond back to the server using RCON with custom commands.
 
     Be sure that your Minecraft Server's RCON port is open to the webserver.
-    Preferrably served on localhost for security, or at minimum - local network.
 
-    Consider timing and confirming timestamps.  
-    The same data may be sent in multiple requests, as MC server changes/saves state frequently.
-    For important events, record and compare timestamps to ensure latest requests are processed and delayed requests are dropped.
+    Preferrably served on localhost for security (prevent outside hits) - protect/firewall as needed.
 
-    Item blockstate and inventory data is roughly formatted, but not strictly JSON.  
-        This will be improved in future versions, mod config will specify format in the future (JSON, XML, CSV).
-
-
+    
  * @copyright 2023 Jacob Munoz
  * @author ElectricShmoo
  * @link https://github.com/JacobMunoz/urlium_1_20_1_public
 
-*/
+    This example offers users "Wand Modes"  (Corral, Trap, and Select)
 
+    The user runs "/webcom corral Cow pen" to create a deposit-point for Cows, and creates an 8x8 pen for them 
+    The user runs "/webcom corral Chicken" to create a deposit-point for Chickens
+
+    ...with the user in this "Corral Mode", the user can hit animals with the Post Wand and /tp them to the correct corral
+
+    The user runs "/webcom trap" to set "Trap Mode"...
+    ...with the user in "Trap Mode", using the Post Wand on an entity will create a small pen to trap the mob.
+
+    The user runs "/webcom select" to set "Select Mode"...
+    ...with the user in "Select Mode", using the Post Wand on an entity will enable the glowing effect on the mob.
+
+*/
 use Thedudeguy\Rcon;
+
 include_once("rcon.php");
+include_once("init.php");
 
-$host = '127.0.0.1';       // Server host name or IP
-$port = 25575;             // Port rcon is listening on
-$password = 'rcon_password_here'; // rcon.password setting set in server.properties
-$timeout = 3;              // How long to timeout from RCON.  Perform actions quickly and disconnect.
-
-/*
-
-// If you fear your script will take a long time to complete, consider calling this script as a server background process.
-// These four lines in a separate PHP script would receive a request, save it, pass it to this main processing script, and return immediately.
-// While it is not necessary, it would relieve the URLium mod from having to keep connections open while running this script.
-// URLium treats the response async, so there should be no lag - but it is best to respond quickly.
-// You could use a combination of rapid response with background process as well.
-
-// proxy index.php:
-$ts = intval($_REQUEST['ts']);
-file_put_contents($ts.'.req', json_encode($_REQUEST));
-exec("php processor.php " . $ts . " >> /dev/null & "); //spawn background thread so response is immediate
-echo "HIT THE SERVER with ".json_encode($_REQUEST); //optional response message to log in MC server log
-
-
-// ...then use these request/requestString values in this script instead.
-
-$ts = $argv[1];
-$requestString = file_get_contents($ts.'.req');
-$request = json_decode( $requestString, true);
-
-*/
-$requestString = print_r($_REQUEST,true);
-$request = $_REQUEST; 
-
-
-// --Customize your script here:
-
-$device = $request['device']; // mandatory field
-$x = intval($request['x']); // common field
-$y = intval($request['y']); // common field
-$z = intval($request['z']); // common field
-
-$rcon = new Rcon($host, $port, $password, $timeout);
+$device = $_REQUEST['device'];
 
 if ($rcon->connect()) {
     switch($device) {
-        case "block":
-            $power = intval($request['p']); // get redstone power
-            $radius = 10;
+        case "message":
+            $username = filterNonAlphanumeric($_REQUEST['user']);
+            $message = $_REQUEST['message'];
+            $instructions = explode(' ', $message);
 
-            if ( $power  ) {
-//when an URLium block is powered, create a sphere of glowstone 25 blocks above, radius 10
-                for ($angleT = 0 ; $angleT<180; $angleT += 5){
-                    for ($angleU = 0 ; $angleU<360; $angleU += 5){
-                        $circX = $x + (int)($radius * sin(deg2rad($angleT)) * cos(deg2rad($angleU)));
-                        $circY = $y + 25 + (int)($radius * cos(deg2rad($angleT)));
-                        $circZ = $z + (int)($radius * sin(deg2rad($angleT)) * sin(deg2rad($angleU)));
-                        $command = "/setblock ".$circX." ".$circY." ".$circZ." minecraft:glowstone replace";
-                        $rcon->sendCommand($command);
-                        usleep(2000); 
-                    }
-                }
-            } else {
-//when an URLium block is unpowered, clear the sphere with air
-                for ($angleT = 0 ; $angleT<180; $angleT += 5){
-                    for ($angleU = 0 ; $angleU<360; $angleU += 5){
-                        $circX = $x + (int)($radius * sin(deg2rad($angleT)) * cos(deg2rad($angleU)));
-                        $circY = $y + 25 + (int)($radius * cos(deg2rad($angleT)));
-                        $circZ = $z + (int)($radius * sin(deg2rad($angleT)) * sin(deg2rad($angleU)));
-                        $command = "/setblock ".$circX." ".$circY." ".$circZ." minecraft:air replace";
+            switch($instructions[0]){
+                case "corral":
+                    if (!is_dir("usermode")) mkdir("usermode");
+                    if (!is_dir("corral")) mkdir("corral");
+                    if (!is_dir("corral/".$username)) mkdir("corral/".$username);
+
+                    setUserMode("corral");
+
+                    if (isset($instructions[1])) {
+
+                        $animal = filterNonAlphanumeric($instructions[1]);
+
+                        $coordinates = playerPosition( $rcon, $username);
+
+                        $coordinateString = implode(" ", $coordinates);
+
+                        file_put_contents("corral/" . $username . "/" . $animal, $coordinateString);
+
+                        $response = 'User: '.$_REQUEST['user'].' created a corral for: '.$animal.' at: '.$coordinateString;
+                        $command = '/tellraw '.$username.' {"text":'.json_encode($response).',"color":"aqua"}'; 
                         $rcon->sendCommand($command);
                         usleep(2000);
+
+                        if (isset($instructions[2])) {
+     
+                            switch($instructions[2]) {
+                                case "pen":
+                                    
+                                    $sequence = createAnimalPen( $coordinates[0], $coordinates[1], $coordinates[2], 8, 8);
+                                    foreach ($sequence as $command) {
+                                        $rcon->sendCommand($command);
+                                        usleep(2000);
+                                    }
+                                    break;
+                            }
+                        }
                     }
-                }
+                    break;
+
+                case "trap":
+                    setUserMode("trap");
+                    break;
+
+                case "select":
+                    setUserMode("select");
+                    break;
             }
             break;
 
-        case "chest":
-                $blockdata = $request['inventory']; //read inventory data
-                $command = "/say A PHP script received inventory for ".$x." ".$y." ".$z." = ".$blockdata;
+        case "entity":
+                $username = '@a';
+                $response = "Interacted with entity: ".$_REQUEST['entitytype'].' = '.print_r($_REQUEST,true);
+                $command = '/tellraw '.$username.' {"text":'.json_encode($response).',"color":"white"}'; 
                 $rcon->sendCommand($command);
             break;
 
-
-        case "message":
-            $username = $request['user'];
-            $message = $request['message'];
-                $command = "/say A PHP script received this message from user ".$username.": ".$message;
+        case "configwand":
+                $username = $_REQUEST['user'];
+                $response = "received: ".print_r($_REQUEST,true);
+                $command = '/tellraw '.$username.' {"text":'.json_encode($response).',"color":"gold"}'; 
                 $rcon->sendCommand($command);
             break;
 
         case "wand":
-                $power = intval($request['p']);
+            switch( getUserMode() ) {
+                case "corral":
+                    switch($_REQUEST['target']) {
+                        case "entity":
 
-                $command = "/ugetblock ".$x." ".$y." ".$z;
-                $blockstring = $rcon->sendCommand($command);
+                            $x = intval($_REQUEST['x']);
+                            $y = intval($_REQUEST['y']);
+                            $z = intval($_REQUEST['z']);
+                            $username = $_REQUEST['user'];
+                            $animal = $_REQUEST['entitytype'];
 
-                $command = "/say A PHP script received block data for ".$x." ".$y." ".$z;
-                $rcon->sendCommand($command);
+                            if (file_exists("corral/" . $username . "/" . $animal)) {
+                                $command = "/tp ".$_REQUEST['entityid']." ".file_get_contents("corral/" . $username . "/" . $animal);
+                                $rcon->sendCommand($command);
+                                usleep(2000);
 
-                if ( $power  ) {
-// when a powered block is clicked with a wand, turn it into diamond_block
-                    $command = "/setblock ".$x." ".$y." ".$z." minecraft:diamond_block replace";
+                                $command = "/playsound minecraft:block.shroomlight.break master ".$username." ".$x." ".$y." ".$z;
+                                $rcon->sendCommand($command);
+                            } else {
+                                $response = "There is no corral for: ".$animal;
+                                $command = '/tellraw '.$username.' {"text":'.json_encode($response).',"color":"gold"}'; 
+                                $rcon->sendCommand($command);
+                            }
+                            break;
+                    }
+                    break; //end of 'corral' mode
 
-// Consider a function that builds structres based on location and parameters: 
-//                  $sequence = createVillageHouse( $x, $y, $z, 5, 5, 5);
-                    //foreach ($sequence as $command) {
+                case "trap":
+                    switch($_REQUEST['target']) {
+                        case "entity":
+                            $x = intval($_REQUEST['x']);
+                            $y = intval($_REQUEST['y']);
+                            $z = intval($_REQUEST['z']);
+                            $sequence = createAnimalPen( $x, $y, $z, 4, 4);
+                            foreach ($sequence as $command) {
+                                $rcon->sendCommand($command);
+                                usleep(2000);
+                            }
+                            break; // end of entity interaction
+                    }
+                    break; //end of 'trap' mode
+                case "select":
+                    switch($_REQUEST['target']) {
+                        case "entity":
+                            $x = intval($_REQUEST['x']);
+                            $y = intval($_REQUEST['y']);
+                            $z = intval($_REQUEST['z']);
 
-                        $rcon->sendCommand($command);
-                        usleep(1500);
+                            $command = '/effect give '.$_REQUEST['entityid'].' minecraft:glowing'; 
+                            $rcon->sendCommand($command);
 
-                    //}
+                            break; // end of entity interaction
+                        case "block":
+                            $response = "Detected wand on block: ".print_r($_REQUEST,true);
+                            $command = '/tellraw @a {"text":'.json_encode($response).',"color":"green"}'; 
+                            $rcon->sendCommand($command);
+                            break;
+                    }
+                    break; //end of 'select' mode
 
-                } else {
-// when an unpowered block is clicked with a wand, turn it into gold
-                    $command = "/setblock ".$x." ".$y." ".$z." minecraft:gold_block replace";
+                default:
+                    $response = "No wand mode set.";
+                    $command = '/title '.$username.' title {"text":'.json_encode($response).',"color":"red"}'; 
                     $rcon->sendCommand($command);
-                    usleep(2000);
-                }
+                    break;
+            } // close switch getUserMode
             break;
-        case "oak_sign":
-                $command = "/say A PHP script received data from an oak_sign: ".$requestString;
-                $rcon->sendCommand($command);
+
+        case "block":
+            $x = intval($_REQUEST['x']);
+            $y = intval($_REQUEST['y']);
+            $z = intval($_REQUEST['z']);
+            $username = $_REQUEST['user'];
+
+            // shroomlight.break
+            $command = '/playsound minecraft:block.amethyst_block.hit master '.$username.' '.$x.' '.$y.' '.$z;
+            $rcon->sendCommand($command);
+            usleep(2000);
             break;
-        default:
-                $command = "/say A PHP script received data from a: ".$device;
-                $rcon->sendCommand($command);
+
+        default: // handle all other 'devices' by printing via RCON
+            $response = "Detected: ".print_r($_REQUEST,true);
+            $command = '/tellraw @a {"text":'.json_encode($response).',"color":"white"}'; 
+            $rcon->sendCommand($command);
             break;
     }
 }
 
+function filterNonAlphanumeric($inputString) {
+    $filteredString = preg_replace("/[^a-zA-Z0-9_]/", '', $inputString);
+    return $filteredString;
+}
+
+function getUserMode(){
+    $usermode = 'unset';
+    $username = filterNonAlphanumeric($_REQUEST['user']);
+    if (file_exists("usermode/".$username)) $usermode = file_get_contents("usermode/".$username);
+    return $usermode;
+}
+
+function setUserMode($mode) {
+    global $rcon;
+    if (getUserMode() != $mode) {
+        $username = filterNonAlphanumeric($_REQUEST['user']);
+
+        file_put_contents("usermode/" . $username, $mode); // set user wand mode = 'corral'
+
+        $response = ucwords($mode)." Mode";
+        $command = '/title '.$username.' title {"text":'.json_encode($response).',"color":"blue"}'; 
+        $rcon->sendCommand($command);
+        usleep(2000);
+    }
+}
 
 function playerPosition( &$rconConn, $playerName) {
     $rawoutput = $rconConn->sendCommand("/data get entity @p[name=".$playerName."] Pos");
@@ -159,63 +226,29 @@ function playerPosition( &$rconConn, $playerName) {
     $rptwo = explode("]",$rpone[1]);  // trim,
     $rpthree = str_replace(',','',$rptwo[0]); // clean,
     $rpfour = explode(" ",$rpthree); // split into x y z
-    return $rpfour;
+    $coords = array_map('intval', $rpfour);
+    return $coords;
 };
 
-
-/* This function was written by ChatGPT... so it's both stupidly horrible and terrifyingly amazing */
-
-function createVillageHouse($x, $y, $z, $height, $width, $depth) {
+function createAnimalPen($x, $y, $z, $width, $depth) {
     $commands = [];
-
-    // Build the foundation (wooden planks)
     for ($i = 0; $i < $width; $i++) {
-        for ($j = 0; $j < $depth; $j++) {
-            $commands[] = "/setblock " . ($x + $i) . " $y " . ($z + $j) . " minecraft:oak_planks";
-        }
+        $commands[] = "/setblock " . ($x - floor($width/2) + $i) . " $y " . ($z  - floor($depth/2)) . " minecraft:oak_fence";
+        $commands[] = "/setblock " . ($x - floor($width/2) + $i) . " $y " . ($z  + floor($depth/2)) . " minecraft:oak_fence";
     }
-
-    // Build the walls (wooden logs)
-    for ($i = 0; $i < $height; $i++) {
-        for ($j = 0; $j < $width; $j++) {
-            $commands[] = "/setblock " . ($x + $j) . " " . ($y + $i) . " $z minecraft:oak_log[axis=y]";
-            $commands[] = "/setblock " . ($x + $j) . " " . ($y + $i) . " " . ($z + $depth - 1) . " minecraft:oak_log[axis=y]";
-        }
-        for ($j = 0; $j < $depth; $j++) {
-            $commands[] = "/setblock $x " . ($y + $i) . " " . ($z + $j) . " minecraft:oak_log[axis=y]";
-            $commands[] = "/setblock " . ($x + $width - 1) . " " . ($y + $i) . " " . ($z + $j) . " minecraft:oak_log[axis=y]";
-        }
+    for ($j = 0; $j <= $depth; $j++) {
+        $commands[] = "/setblock " . ($x - floor($width/2)) . " $y " . ($z - floor($depth/2) + $j) . " minecraft:oak_fence";
+        $commands[] = "/setblock " . ($x + floor($width/2)) . " $y " . ($z - floor($depth/2) + $j) . " minecraft:oak_fence";
     }
-
-    // Build the roof (wooden stairs)
-    for ($i = 0; $i < $width; $i++) {
-        $commands[] = "/setblock " . ($x + $i) . " " . ($y + $height) . " $z minecraft:oak_stairs[facing=east,half=bottom]";
-        $commands[] = "/setblock " . ($x + $i) . " " . ($y + $height) . " " . ($z + $depth - 1) . " minecraft:oak_stairs[facing=west,half=bottom]";
-    }
-    for ($i = 0; $i < $depth; $i++) {
-        $commands[] = "/setblock $x " . ($y + $height) . " " . ($z + $i) . " minecraft:oak_stairs[facing=north,half=bottom]";
-        $commands[] = "/setblock " . ($x + $width - 1) . " " . ($y + $height) . " " . ($z + $i) . " minecraft:oak_stairs[facing=south,half=bottom]";
-    }
-
-    // Build the door (wooden door)
-    $commands[] = "/setblock " . ($x + $width / 2) . " $y " . ($z + $depth - 1) . " minecraft:oak_door[hinge=left,facing=south,half=lower]";
-    $commands[] = "/setblock " . ($x + $width / 2) . " " . ($y + 1) . " " . ($z + $depth - 1) . " minecraft:oak_door[hinge=left,facing=south,half=upper]";
-
-    // Add a torch (torches)
-    $commands[] = "/setblock " . ($x + $width / 2) . " " . ($y + $height + 1) . " " . ($z + $depth / 2) . " minecraft:torch";
-
-    // Add a window (glass panes)
-    for ($i = 0; $i < $height - 1; $i++) {
-        $commands[] = "/setblock " . ($x + $width - 1) . " " . ($y + $i) . " " . ($z + $depth / 2) . " minecraft:glass_pane";
-    }
-
-    // Floor (wooden planks)
-    for ($i = 0; $i < $width; $i++) {
-        for ($j = 0; $j < $depth; $j++) {
-            $commands[] = "/setblock " . ($x + $i) . " $y " . ($z + $j) . " minecraft:oak_planks";
-        }
-    }
-
     return $commands;
 }
+
+
+
+
+
+
+
+
+
 
