@@ -296,7 +296,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
      inkscape:cx="304.59379"
-     inkscape:cy="731.15164"
+     inkscape:cy="650.33943"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -421,7 +421,7 @@
          style="stroke-width:0.22334845px"
          id="tspan14375-2-5">* <tspan
    style="font-weight:bold"
-   id="tspan1013">Polymer 0.5.14</tspan> for <tspan
+   id="tspan1013">Polymer 0.5.18</tspan> for <tspan
    style="font-weight:bold"
    id="tspan1015">Fabric 1.20.1</tspan></tspan></text>
     <text
@@ -434,7 +434,7 @@
          x="39.420006"
          y="88.601357"
          style="stroke-width:0.22334845px"
-         id="tspan14375-2-5-4">polymer-bundled-0.5.14+1.20.1.jar</tspan><tspan
+         id="tspan14375-2-5-4">polymer-bundled-0.5.18+1.20.1.jar</tspan><tspan
          sodipodi:role="line"
          x="39.420006"
          y="92.789139"
@@ -817,7 +817,7 @@
          style="stroke-width:0.22334845px"
          id="tspan14375-2-5-6">* <tspan
    style="font-weight:bold;stroke-width:0.22334845px"
-   id="tspan1013-7">Polymer 0.5.14</tspan> for <tspan
+   id="tspan1013-7">Polymer 0.6.2</tspan> for <tspan
    style="font-weight:bold;stroke-width:0.22334845px"
    id="tspan1015-5">Fabric 1.20.2</tspan></tspan></text>
     <text
@@ -830,7 +830,7 @@
          x="119.94204"
          y="87.376495"
          style="stroke-width:0.22334845px"
-         id="tspan14375-2-5-4-5">polymer-bundled-0.6.x+1.20.2.jar</tspan><tspan
+         id="tspan14375-2-5-4-5">polymer-bundled-0.6.2+1.20.2.jar</tspan><tspan
          sodipodi:role="line"
          x="119.94204"
          y="91.564278"
