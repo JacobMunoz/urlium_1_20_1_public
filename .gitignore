@@ -38,3 +38,7 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
+/doc/csharp/urlium.cs
+/doc/csharp/URLiumApp/obj/
+/doc/csharp/URLiumApp/bin/
+/doc/csharp/URLiumApp/Properties/launchSettings.json
