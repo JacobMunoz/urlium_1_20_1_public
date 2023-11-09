@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -82,7 +83,46 @@ public class UrlPostBlock extends Block implements PolymerTexturedBlock {
                 } catch (IOException ignore) { }
         }
     }
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player){
+        if (!world.isClient) {
+            try {
+                String userName = player.getEntityName();
+                long unixTime = System.currentTimeMillis();
+                Map<Object, Object> data = new HashMap<>();
+                data.put("device", "block");
+                data.put("method", "break");
+                data.put("user", userName);
+                data.put("ts", unixTime);
+                data.put("x", pos.getX());
+                data.put("y", pos.getY());
+                data.put("z", pos.getZ());
 
+                sendPOST(data);
+            } catch (IOException ignore) { }
+        }
+    }
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        if (!world.isClient) {
+            try {
+                String userName = placer.getEntityName();
+                long unixTime = System.currentTimeMillis();
+                Map<Object, Object> data = new HashMap<>();
+                data.put("device", "block");
+                data.put("method", "place");
+                data.put("user", userName);
+                data.put("ts", unixTime);
+                data.put("x", pos.getX());
+                data.put("y", pos.getY());
+                data.put("z", pos.getZ());
+
+                sendPOST(data);
+
+            } catch (IOException ignore) {
+            }
+        }
+    }
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit){
         if (!world.isClient ) {
             int realpow = state.get(POWER);
