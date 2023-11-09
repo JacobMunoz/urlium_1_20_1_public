@@ -295,8 +295,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="315.02006"
-     inkscape:cy="398.69814"
+     inkscape:cx="233.18812"
+     inkscape:cy="584.93361"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -313,7 +313,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -405,7 +405,7 @@
          x="36.112747"
          y="139.1794"
          style="stroke-width:0.26458332px"
-         id="tspan1564"></tspan><tspan
+         id="tspan1564" /><tspan
          sodipodi:role="line"
          x="36.112747"
          y="144.14034"
@@ -431,7 +431,7 @@
          id="tspan10"
          x="23.408878"
          y="27.32839"
-         style="stroke-width:0.45820922px">URLium 1.2.0</tspan></text>
+         style="stroke-width:0.45820922px">URLium 1.3.0</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.42390537px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.294927px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -612,7 +612,7 @@
            height="79.802048"
            x="-74.751289"
            y="195.19965" /></flowRegion><flowPara
-         id="flowPara1385"></flowPara></flowRoot>    <text
+         id="flowPara1385" /></flowRoot>    <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.18958616px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.21263906px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="37.203548"
@@ -622,12 +622,12 @@
          x="37.203548"
          y="189.33104"
          style="stroke-width:0.21263906px"
-         id="tspan1046-0">[18:09:47] [main/INFO]: URLium 1.2.0 initializing...</tspan><tspan
+         id="tspan1046-0">[18:09:47] [main/INFO]: URLium 1.3.0 initializing...</tspan><tspan
          sodipodi:role="line"
          x="37.203548"
          y="193.31802"
          style="stroke-width:0.21263906px"
-         id="tspan1446"></tspan><tspan
+         id="tspan1446" /><tspan
          sodipodi:role="line"
          x="37.203548"
          y="197.30501"
@@ -637,17 +637,17 @@
          x="37.203548"
          y="201.29199"
          style="stroke-width:0.21263906px"
-         id="tspan1450"></tspan><tspan
+         id="tspan1450" /><tspan
          sodipodi:role="line"
          x="37.203548"
          y="205.27898"
          style="stroke-width:0.21263906px"
-         id="tspan1452">[18:09:47] [main/INFO]: Setting: http user agent: urlium_1.2.0.</tspan><tspan
+         id="tspan1452">[18:09:47] [main/INFO]: Setting: http user agent: urlium_1.3.0.</tspan><tspan
          sodipodi:role="line"
          x="37.203548"
          y="209.26595"
          style="stroke-width:0.21263906px"
-         id="tspan1454"></tspan><tspan
+         id="tspan1454" /><tspan
          sodipodi:role="line"
          x="37.203548"
          y="213.25293"
@@ -657,12 +657,12 @@
          x="37.203548"
          y="217.23991"
          style="stroke-width:0.21263906px"
-         id="tspan1458"></tspan><tspan
+         id="tspan1458" /><tspan
          sodipodi:role="line"
          x="37.203548"
          y="221.2269"
          style="stroke-width:0.21263906px"
-         id="tspan1460"></tspan><tspan
+         id="tspan1460" /><tspan
          sodipodi:role="line"
          x="37.203548"
          y="225.21388"
@@ -677,7 +677,7 @@
          x="37.203548"
          y="233.18785"
          style="stroke-width:0.21263906px"
-         id="tspan1466"></tspan><tspan
+         id="tspan1466" /><tspan
          sodipodi:role="line"
          x="37.203548"
          y="237.17484"
@@ -697,7 +697,7 @@
          x="37.203548"
          y="249.13577"
          style="stroke-width:0.21263906px"
-         id="tspan1474"></tspan><tspan
+         id="tspan1474" /><tspan
          sodipodi:role="line"
          x="37.203548"
          y="253.12276"
@@ -861,7 +861,7 @@
          x="99.553963"
          y="147.15233"
          style="fill:#0000ac;fill-opacity:1;stroke-width:0.19903837px"
-         id="tspan1730"></tspan><tspan
+         id="tspan1730" /><tspan
          sodipodi:role="line"
          x="99.553963"
          y="150.88431"

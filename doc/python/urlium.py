@@ -41,14 +41,14 @@ class MyServer(BaseHTTPRequestHandler):
 
                 if (deviceType == "configwand" ):
                     playerName = form.getfirst("user")
-                    resp = rcon.command("tellraw @a  {\"text\":\"Received URL Config Wand change from " + playerName + "\",\"color\":\"yellow\"}")
+                    resp = rcon.command("tellraw @a {\"text\":\"Received URL Config Wand change from " + playerName + "\",\"color\":\"yellow\"}")
 
                 elif (deviceType == "wand"):
                     playerName = form.getfirst("user")
                     resp = rcon.command("tellraw "+playerName+" {\"text\":\"Received POST signal from URL Post Wand\",\"color\":\"aqua\"}")
 
                 else:
-                    resp = rcon.command("tellraw @a  {\"text\":\"Received "+deviceType+" signal - in Python3! :)\",\"color\":\"green\"}")
+                    resp = rcon.command("tellraw @a {\"text\":\"Received "+deviceType+" signal - in Python3! :)\",\"color\":\"green\"}")
                     print("Reported "+deviceType)
 
         else:

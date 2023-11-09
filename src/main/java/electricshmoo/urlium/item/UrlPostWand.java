@@ -63,6 +63,8 @@ public class UrlPostWand extends Item implements PolymerItem {
             String methodHand = hand.toString();
             StringBuilder blockStateStringBuilder = new StringBuilder(BlockArgumentParser.stringifyBlockState(clickedBlock));
             String blockStateString = blockStateStringBuilder.toString();
+            String blockType = clickedBlock.getBlock().getTranslationKey();
+            String shortName = blockType.substring(blockType.lastIndexOf(".")+1 );
 
             try {
                 Map<Object, Object> data = new HashMap<>();
@@ -76,6 +78,7 @@ public class UrlPostWand extends Item implements PolymerItem {
                 data.put("target", "block");
                 data.put("hand", methodHand);
                 data.put("block", block.getName().getString());
+                data.put("blocktype", shortName);
                 data.put("blockState", blockStateString);
                 data.put("user", userName);
                 data.put("ts", unixTime);

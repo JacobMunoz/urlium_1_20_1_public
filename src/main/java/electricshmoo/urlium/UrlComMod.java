@@ -58,7 +58,7 @@ public class UrlComMod implements ModInitializer {
 	public static Item ConfigWand;
 
 	public void onInitialize() {
-		LOGGER.info("URLium 1.2.0 initializing...");
+		LOGGER.info("URLium 1.3.0 initializing...");
 
 		PolymerResourcePackUtils.markAsRequired();
 		PolymerResourcePackUtils.addModAssets(MOD_ID);
@@ -66,7 +66,7 @@ public class UrlComMod implements ModInitializer {
 		postUrl = getConfigData("target", "");
 		LOGGER.info("Setting: target URL: "+postUrl+".");
 
-		userAgent = getConfigData("agent","urlium_1.2.0");
+		userAgent = getConfigData("agent","urlium_1.3.0");
 		LOGGER.info("Setting: http user agent: "+userAgent+".");
 
 		messageCommand1Name = getConfigData("messageCommand","webcom");
@@ -145,7 +145,7 @@ public class UrlComMod implements ModInitializer {
 				writer.write("#set target to the http(s) url to send data to\n");
 				writer.write("target=");
 				writer.write("#set agent to the User-Agent header to be transmitted (browser name)\n");
-				writer.write("agent=urlium_1.2.0");
+				writer.write("agent=urlium_1.3.0");
 				writer.write("#optional authentication value to send to webserver as shared secret\n");
 				writer.write("securityToken=secret_token");
 				writer.write("#command name to transmit user messages to server\n");

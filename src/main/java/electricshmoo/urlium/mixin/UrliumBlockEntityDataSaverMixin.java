@@ -8,7 +8,10 @@ import net.minecraft.block.entity.*;
 import net.minecraft.command.argument.BlockArgumentParser;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.WrittenBookItem;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -41,6 +44,28 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
         return persistData;
     }
 
+    private String getInventoryString(Inventory inv){
+        Gson gson = new Gson();
+        StringBuilder inventoryString = new StringBuilder();
+        boolean inventorySuffix = false;
+        inventoryString.append("{");
+        for (int slot = 0; slot < inv.size(); slot++) {
+            ItemStack stack = inv.getStack(slot);
+            if (!stack.isEmpty()) {
+                if (inventorySuffix) inventoryString.append(",");
+                inventoryString.append("\""+Integer.toString( slot )+"\":{");
+                inventoryString.append("\"count\":" + Integer.toString(stack.getCount()) + ",");
+                inventoryString.append("\"item\":" + gson.toJson(stack.getItem().toString()) + ",");
+                inventoryString.append("\"name\":" + gson.toJson(stack.getName().getString()));
+                inventoryString.append("}");
+                inventorySuffix = true;
+            }
+        }
+        inventoryString.append("}");
+
+        return inventoryString.toString();
+    }
+
     @Inject(method="readNbt", at=@At("HEAD"))
     protected  void injectReadMethod(NbtCompound nbt, CallbackInfo info){
         if (nbt.contains("urlium",10))
@@ -68,57 +93,23 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                 if (blockType.equals("chest")) {
                     ChestBlock block = (ChestBlock) blockState.getBlock();
                     Inventory inv = getInventory(block, blockState, world, blockPos, true);
-                    Gson gson = new Gson();
-                    StringBuilder inventoryString = new StringBuilder();
-                    boolean inventorySuffix = false;
-                    inventoryString.append("{");
-                    for (int slot = 0; slot < inv.size(); slot++) {
-                        ItemStack stack = inv.getStack(slot);
-                        if (!stack.isEmpty()) {
-                            if (inventorySuffix) inventoryString.append(",");
-                            inventoryString.append("\""+Integer.toString( slot )+"\":{");
-                            inventoryString.append("\"count\":" + Integer.toString(stack.getCount()) + ",");
-                            inventoryString.append("\"item\":" + gson.toJson(stack.getItem().toString()) + ",");
-                            inventoryString.append("\"name\":" + gson.toJson(stack.getName().getString()));
-                            inventoryString.append("}");
-                            inventorySuffix = true;
-                        }
-                    }
-                    inventoryString.append("}");
                     data.put("device", "chest");
-                    data.put("inventory", inventoryString.toString());
+                    data.put("inventory", getInventoryString(inv));
                     data.put("blockState", blockStateString);
 
                 } else if (blockType.equals("trapped_chest")) {
                     TrappedChestBlock block = (TrappedChestBlock) blockState.getBlock();
                     Inventory inv  = getInventory(block, blockState, world, blockPos, true);
-                    Gson gson = new Gson();
-                    StringBuilder inventoryString = new StringBuilder();
-                    inventoryString.append("{");
-                    boolean inventorySuffix = false;
-                    for (int slot = 0; slot < inv.size(); slot++) {
-                        ItemStack stack = inv.getStack(slot);
-                        if (!stack.isEmpty()) {
-                            if (inventorySuffix) inventoryString.append(",");
-                            inventoryString.append("\""+Integer.toString( slot )+"\":{");
-                            inventoryString.append("\"count\":"+Integer.toString( stack.getCount() )+",");
-                            inventoryString.append("\"item\":"+gson.toJson(stack.getItem().toString())+",");
-                            inventoryString.append("\"name\":"+gson.toJson(stack.getName().getString()));
-                            inventoryString.append("}");
-                            inventorySuffix = true;
-                        }
-                    }
-                    inventoryString.append("}");
                     data.put("p", block.getWeakRedstonePower(blockState,world,blockPos, Direction.UP));
                     data.put("device", "trapped_chest");
-                    data.put("inventory", inventoryString.toString());
+                    data.put("inventory", getInventoryString(inv));
                     data.put("blockState", blockStateString);
 
                 } else if (blockType.equals("barrel")) {
                     BarrelBlockEntity barrelEntity = (BarrelBlockEntity) world.getBlockEntity(blockPos);
+
                     Gson gson = new Gson();
                     StringBuilder inventoryString = new StringBuilder();
-
                     inventoryString.append("{");
                     boolean inventorySuffix = false;
                     for (int slot = 0; slot < barrelEntity.size(); slot++) {
@@ -161,6 +152,52 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                     data.put("inventory", inventoryString.toString());
                     data.put("blockState", blockStateString);
 
+                } else if (blockType.equals("dispenser")) {
+                    DispenserBlockEntity dispenserEntity = (DispenserBlockEntity) world.getBlockEntity(blockPos);
+                    Gson gson = new Gson();
+                    StringBuilder inventoryString = new StringBuilder();
+                    inventoryString.append("{");
+                    boolean inventorySuffix = false;
+                    for (int slot = 0; slot < dispenserEntity.size(); slot++) {
+                        ItemStack stack = dispenserEntity.getStack(slot);
+                        if (!stack.isEmpty()) {
+                            if (inventorySuffix) inventoryString.append(",");
+                            inventoryString.append("\""+Integer.toString( slot )+"\":{");
+                            inventoryString.append("\"count\":"+Integer.toString( stack.getCount() )+",");
+                            inventoryString.append("\"item\":"+gson.toJson(stack.getItem().toString())+",");
+                            inventoryString.append("\"name\":"+gson.toJson(stack.getName().getString()));
+                            inventoryString.append("}");
+                            inventorySuffix = true;
+                        }
+                    }
+                    inventoryString.append("}");
+                    data.put("device", "dispenser");
+                    data.put("inventory", inventoryString.toString());
+                    data.put("blockState", blockStateString);
+
+                } else if (blockType.equals("dropper")) {
+                    DropperBlockEntity dropperEntity = (DropperBlockEntity) world.getBlockEntity(blockPos);
+                    Gson gson = new Gson();
+                    StringBuilder inventoryString = new StringBuilder();
+                    inventoryString.append("{");
+                    boolean inventorySuffix = false;
+                    for (int slot = 0; slot < dropperEntity.size(); slot++) {
+                        ItemStack stack = dropperEntity.getStack(slot);
+                        if (!stack.isEmpty()) {
+                            if (inventorySuffix) inventoryString.append(",");
+                            inventoryString.append("\""+Integer.toString( slot )+"\":{");
+                            inventoryString.append("\"count\":"+Integer.toString( stack.getCount() )+",");
+                            inventoryString.append("\"item\":"+gson.toJson(stack.getItem().toString())+",");
+                            inventoryString.append("\"name\":"+gson.toJson(stack.getName().getString()));
+                            inventoryString.append("}");
+                            inventorySuffix = true;
+                        }
+                    }
+                    inventoryString.append("}");
+                    data.put("device", "dropper");
+                    data.put("inventory", inventoryString.toString());
+                    data.put("blockState", blockStateString);
+
                 } else if (blockType.equals("lectern")) {
                     LecternBlock block = (LecternBlock) blockState.getBlock();
                     LecternBlockEntity blockEntity = (LecternBlockEntity) world.getBlockEntity(blockPos);
@@ -171,12 +208,35 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                         ItemStack book = blockEntity.getBook();
                         NbtCompound bookNbt = book.getNbt();
                         bookContents.append(bookNbt.toString());
-                        data.put("bookContents", bookContents.toString());
                         data.put("hasBook", 1);
+                        data.put("bookContents", bookNbt.get("pages").toString());
+
+                        if (book.getItem() instanceof WrittenBookItem) { // Check if it's a written book
+                            if (bookNbt != null && bookNbt.contains("author", NbtElement.STRING_TYPE) && bookNbt.contains("title", NbtElement.STRING_TYPE)) {
+                                data.put("bookAuthor", bookNbt.getString("author"));
+                                data.put("bookTitle", bookNbt.getString("title"));
+                                data.put("isWritten", 1);
+                                StringBuilder bookTextJson = new StringBuilder();
+                                bookTextJson.append("[");
+                                NbtList pagesNbt = bookNbt.getList("pages", NbtElement.STRING_TYPE);
+                                for (int i = 0; i < pagesNbt.size(); i++) {
+                                    String pageJson = pagesNbt.getString(i); // Page content in JSON string format
+                                    bookTextJson.append(pageJson);
+                                    if (i < pagesNbt.size() - 1) {
+                                        bookTextJson.append(","); // Separate JSON strings with commas
+                                    }
+                                }
+                                bookTextJson.append("]");
+                                data.put("bookContents", bookTextJson.toString());
+                            }
+                        } else {
+                            data.put("isWritten", 0);
+                        }
                     } else {
                         data.put("bookContents", "");
                         data.put("hasBook", 0);
                     }
+                    data.put("p", block.getWeakRedstonePower(blockState,world,blockPos, Direction.UP));
                     data.put("blockState", blockStateString);
 
                 } else if (blockType.equals("sculk_sensor")) {
@@ -215,31 +275,33 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
                     data.put("inventory", inventoryString.toString());
                 }*/
                 else if (blockType.indexOf("_sign")>0) {
-                    SignBlock block = (SignBlock) blockState.getBlock();
-                    SignBlockEntity blockEntity = (SignBlockEntity) world.getBlockEntity(blockPos);
+                    Block blockToCheck = world.getBlockState(blockPos).getBlock();
+                    if (blockToCheck instanceof AbstractSignBlock) {
+                        BlockEntity blockEntity = world.getBlockEntity(blockPos);
+
+                        if (blockEntity instanceof SignBlockEntity) {
+                            SignBlockEntity signBlockEntity = (SignBlockEntity) blockEntity;
+
+                            Text[] frontTextMessages = signBlockEntity.getFrontText().getMessages(false);
+                            String frontText = "[";
+                            for (int i = 0; i < frontTextMessages.length; i++) {
+                                frontText  +=  Text.Serializer.toJson(frontTextMessages[i]);; // Extract the text content as a plain string
+                                if (i+1 < frontTextMessages.length) frontText += ",";
+                                else frontText += "]";
+                            }
+                            data.put("frontText", frontText);
+//                            data.put("frontColor", signBlockEntity.getFrontText().getColor().asString());  //just fetch via RCON... not here, right?
+                            Text[] backTextMessages = signBlockEntity.getBackText().getMessages(false);
+                            String backText = "[";
+                            for (int i = 0; i < backTextMessages.length; i++) {
+                                backText  +=  Text.Serializer.toJson(backTextMessages[i]);; // Extract the text content as a plain string
+                                if (i+1 < backTextMessages.length) backText += ",";
+                                else backText += "]";
+                            }
+                            data.put("backText", backText);
+                        }
+                    }
                     data.put("device", persistData.getString("blocktype"));
-                    Text[] frontTextMessages = blockEntity.getFrontText().getMessages(false);
-                    String frontText = "[";
-                    for (int i = 0; i < frontTextMessages.length; i++) {
-                        frontText  +=  Text.Serializer.toJson(frontTextMessages[i]);; // Extract the text content as a plain string
-                        if (i+1 < frontTextMessages.length) frontText += ",";
-                        else frontText += "]";
-                    }
-                    data.put("frontText", frontText);
-
-                    Text[] backTextMessages = blockEntity.getBackText().getMessages(false);
-                    String backText = "[";
-                    String backStyle = "[";
-                    for (int i = 0; i < backTextMessages.length; i++) {
-
-                        backText  +=  Text.Serializer.toJson(backTextMessages[i]);; // Extract the text content as a plain string
-                        if (i+1 < backTextMessages.length) backText += ",";
-                        else backText += "]";
-
-                    }
-                    data.put("backText", backText);
-//                    data.put("backStyle", backStyle);
-                    //backTextMessages[i].getStyle();  //add styles
                     data.put("blockState", blockStateString);
 
                 } else {
@@ -260,6 +322,4 @@ public abstract class UrliumBlockEntityDataSaverMixin implements IBlockEntityDat
             }
         }
     }
-
-
 }

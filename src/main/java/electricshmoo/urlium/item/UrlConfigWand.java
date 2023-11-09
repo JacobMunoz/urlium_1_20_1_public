@@ -63,6 +63,8 @@ public class UrlConfigWand extends Item implements PolymerItem {
                     clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.lectern") ||
                     clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.barrel") ||
                     clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.hopper") ||
+                    clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.dispenser") ||
+                    clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.dropper") ||
                     clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.comparator") ||
                     clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.sculk_sensor") ||
                     clickedBlock.getBlock().getTranslationKey().equals("block.minecraft.daylight_detector") ||

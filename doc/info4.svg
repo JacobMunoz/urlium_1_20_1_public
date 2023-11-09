@@ -295,8 +295,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="304.59379"
-     inkscape:cy="650.33943"
+     inkscape:cx="226.99294"
+     inkscape:cy="700.96498"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -313,7 +313,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -338,7 +338,7 @@
          id="tspan10"
          x="23.408878"
          y="27.32839"
-         style="stroke-width:0.45820922px">URLium 1.2.0</tspan></text>
+         style="stroke-width:0.45820922px">URLium 1.3.0</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.42390537px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.294927px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -421,7 +421,7 @@
          style="stroke-width:0.22334845px"
          id="tspan14375-2-5">* <tspan
    style="font-weight:bold"
-   id="tspan1013">Polymer 0.5.18</tspan> for <tspan
+   id="tspan1013">Polymer 0.5.14</tspan> for <tspan
    style="font-weight:bold"
    id="tspan1015">Fabric 1.20.1</tspan></tspan></text>
     <text
@@ -434,12 +434,12 @@
          x="39.420006"
          y="88.601357"
          style="stroke-width:0.22334845px"
-         id="tspan14375-2-5-4">polymer-bundled-0.5.18+1.20.1.jar</tspan><tspan
+         id="tspan14375-2-5-4">polymer-bundled-0.5.14+1.20.1.jar</tspan><tspan
          sodipodi:role="line"
          x="39.420006"
          y="92.789139"
          style="stroke-width:0.22334845px"
-         id="tspan16943">urlium-1.2.0-1.20.1.jar</tspan><tspan
+         id="tspan16943">urlium-1.3.0-1.20.1.jar</tspan><tspan
          sodipodi:role="line"
          x="39.420006"
          y="96.976921"
@@ -835,7 +835,7 @@
          x="119.94204"
          y="91.564278"
          style="stroke-width:0.22334845px"
-         id="tspan1071">urlium-1.2.0-1.20.2.jar</tspan><tspan
+         id="tspan1071">urlium-1.3.0-1.20.2.jar</tspan><tspan
          sodipodi:role="line"
          x="119.94204"
          y="95.75206"
