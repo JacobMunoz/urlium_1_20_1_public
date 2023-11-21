@@ -1,0 +1,10 @@
+[
+    {"hmax":1, "hmin":0.8, "w":1, "b":"polished_andesite" },
+    {"hmax":0.8, "hmin":0.1, "w":0.1, "b":"cobblestone" },
+    {"hmax":0.8, "hmin":0.1, "w":0.5, "b":"stone" },
+    {"hmax":0.8, "hmin":0.1, "w":1, "b":"stone_bricks" },
+    {"hmax":0.8, "hmin":0.1, "w":0.2, "b":"cracked_stone_bricks" },
+    {"hmax":0.2, "hmin":0, "w":1, "b":"stone" },
+    {"hmax":0.2, "hmin":0, "w":0.2, "b":"cracked_stone_bricks" },
+    {"hmax":0.2, "hmin":0, "w":0.3, "b":"mossy_stone_bricks" }
+]

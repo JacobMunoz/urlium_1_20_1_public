@@ -1,0 +1,11 @@
+[
+    {"hmax":1, "hmin":0.8, "w":1, "b":"chiseled_sandstone" },
+    {"hmax":1, "hmin":0.8, "w":1, "b":"chiseled_red_sandstone" },
+    {"hmax":0.8, "hmin":0.5, "w":0.1, "b":"sandstone" },
+    {"hmax":0.8, "hmin":0.5, "w":0.5, "b":"sandstone_wall" },
+    {"hmax":0.5, "hmin":0.1, "w":1, "b":"cut_sandstone" },
+    {"hmax":0.5, "hmin":0.1, "w":0.2, "b":"smooth_sandstone" },
+    {"hmax":0.2, "hmin":0, "w":1, "b":"terracotta" },
+    {"hmax":0.2, "hmin":0, "w":1, "b":"terracotta" },
+    {"hmax":0.2, "hmin":0, "w":0.2, "b":"sandstone" }
+]

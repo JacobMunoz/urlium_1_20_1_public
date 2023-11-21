@@ -1,0 +1,35 @@
+Greetings people, this is your friendly Electricshmoo bringing you another URLium use-case example.
+
+we got some algebra, we got some statistics, we got some geometry, in the form of.. textured wall and tower building.
+
+we'll start by explaining the 2 tools we're using here, the "URLium Post Wand" that will set locations 
+and the "/webcom command" that will send parameters to the server to generate our structure
+
+we have a few commands written in the php script we'll look at later, but the rundown of them are: 
+
+
+"wall" builds a Wall
+"tower" builds a tower
+
+"type" block types ( stone, sand, brick, slate, end) pulling from json files
+"height" wall/tower 
+"radius" tower only
+"step" tower only  angle of increment
+"flare" tower only / optional
+"extend" tower only / required with flare
+
+now, let's use these settings to turbo-build a small textured fortress
+
+...note we can go up and down terrains on the y axis and the heights are adusted correctly..
+
+and this is just 2 structure commands wall, and tower... image what you could do with just a few more commands
+
+lets's mix wall types...
+
+and tower types...
+
+all in about 350 lines of PHP with the URLium mod and RCON..
+
+
+
+

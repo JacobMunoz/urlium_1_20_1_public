@@ -1,0 +1,11 @@
+[
+    {"hmax":1, "hmin":0.8, "w":0.1, "b":"end_rod[facing=up]" },
+    {"hmax":1, "hmin":0.8, "w":1, "b":"air" },
+    {"hmax":0.8, "hmin":0.5, "w":0.1, "b":"end_stone_bricks" },
+    {"hmax":0.8, "hmin":0.5, "w":0.5, "b":"end_stone_brick_wall" },
+    {"hmax":0.5, "hmin":0.1, "w":1, "b":"end_stone_bricks" },
+    {"hmax":0.5, "hmin":0.1, "w":0.2, "b":"end_stone" },
+    {"hmax":0.5, "hmin":0.1, "w":0.2, "b":"purpur_block" },
+    {"hmax":0.2, "hmin":0, "w":1, "b":"purpur_block" },
+    {"hmax":0.2, "hmin":0, "w":0.2, "b":"purpur_pillar" }
+]
